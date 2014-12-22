@@ -112,6 +112,10 @@ class ShoppingCart
 
 	@@purchaseArray = []
 
+	def initialize()
+		doGreet
+	end
+
 	def purchaseArray
 		return @@purchaseArray
 	end
@@ -161,46 +165,52 @@ class ShoppingCart
 		@specialDiscount = 0;
 
 		if Item.total >= 5
-			puts "As you have buyed more than 5 items, you have a special 10% discount in your purchase!"
+			#puts "As you have buyed more than 5 items, you have a special 10% discount in your purchase!"
 			@specialDiscount = @finalPrice * 0.1
-			puts "Special Discount: #{@specialDiscount} "
+			#puts "Special Discount: #{@specialDiscount} "
 			@finalPrice -= @specialDiscount
 		end
 
-		puts
-		puts
+		showProductList()
 
 		return "Total Price: #{@totalPrice}", 
 			   "Total Discounts: #{@totalDiscount} + #{@specialDiscount} = #{@totalDiscount+@specialDiscount}",
-			   "Final Purchase Price: #{@finalPrice}"
-	end		
+			   "Final Purchase Price: #{@finalPrice}\n\n\n"
+	end	
+
+	def showProductList
+		i = 0;
+		purchaseArray.each do |element|
+			i += 1;
+			puts "#{i}: Product: #{element} /// Price: #{element.price} //// Discount #{element.discount}"
+		end
+		puts "\n\n\n"
+	end
+
+	def doGreet
+		puts "\n\n\n Welcome to SimpleRubyShop!!! \n\n\n";
+		puts "Please enter the following number to add the item to your shopping cart.\n\n";
+		puts "(1) Bananas, (2) Orange Juice, (3) Rice, (4) Vacuum Cleaner, (5) Anchovies, and (9) to checkout and receive the bill.\n\n\n"
+		
+		requestItem()
+	end
+
+	def requestItem
+
+		puts "Please enter the product number or 9 to finish:"
+
+		usrNum = (gets.chomp).to_i;
+
+		if usrNum != 9
+			addProduct(usrNum);
+			requestItem()
+		else
+			puts "\n\n\nDispatching receipt.......\n\n"
+			puts confirmPurchase()
+			puts "\n\n\nThank you for your purchase.  Good bye!!!\n\n"
+		end
+	end
 end
 
 
-mySCar = ShoppingCart.new
-
-mySCar.addProduct(1);
-mySCar.addProduct(2);
-mySCar.addProduct(3);
-mySCar.addProduct(4);
-mySCar.addProduct(5);
-
-puts
-puts
-puts
-puts "List of products buyed: "
-puts
-puts
-mySCar.purchaseArray.each do |element|
-	puts "(#{element}) price is: #{element.price} and discount: #{element.discount} /// FinalItemPrice: #{element.finalPrice}" 
-end
-puts
-puts
-
-puts mySCar.confirmPurchase 
-puts
-
-
-
-#puts mySCar.purchaseArray
-#puts "Current total price is: #{mySCar.totalPrice}"  
+mySCar = ShoppingCart.new()
