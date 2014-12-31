@@ -1,14 +1,64 @@
 document.addEventListener("DOMContentLoaded", DOMloadedHandler)
 
 function DOMloadedHandler(){
-	var grid = createGrid;
-	grid.addVehicle(0,0);
 	init();
 }
 
-var createGrid = {
+grid = {
+
+	xSize: 100,
+	ySize: 100,
+	obstacles: [],
+
+	setGridSize: function(xSlots, ySlots){
+		xSize = xSlots;
+		ySlots = ySlots;
+	},
+
+	returnGridSize: function(){
+		return [grid.xSize, grid.ySize];
+	},
+
 	addVehicle: function(xPos, yPos){
-		vTmp = vehicle.setPosition(0,0)	
+		v = vehicle.setPosition(xPos,yPos);	
+	},
+
+	addObstacle: function(obs){
+		grid.obstacles.push(obs)
+	},
+
+	getObstacles: function(){
+		return grid.obstacles;
+	},
+
+	setObstacles: function(arr){
+		grid.obstacles = arr;
+	}
+}
+
+obstacle = {
+
+	xPos: 0,
+	yPos: 0,
+	name: undefined,
+
+	initialize: function(n, i){
+		obstacle.setName(n);
+		obstacle.setCoords(i[0], i[1]);
+		return obstacle;
+	},
+
+	setName: function(str){
+		obstacle.name = str;
+	},
+
+	setCoords: function(n1,n2){
+		obstacle.xPos = n1;
+		obstacle.yPos = n2;
+	},
+
+	getCoords: function(){
+		return [obstacle.xPos, obstacle.yPos];
 	}
 }
 
@@ -23,8 +73,22 @@ vehicle = {
 	},
 
 	setPosition: function(newX, newY){
-		xPos = newX;
-		yPos = newY;
+
+		if(newX > grid.returnGridSize()[0]){
+			xPos = 0;
+		}else if(newX < 0){
+			xPos = grid.returnGridSize()[0];
+		}else{
+			xPos = newX;	
+		}
+
+		if(newY > grid.returnGridSize()[1]){
+			yPos = 0;
+		}else if(newY < 0){
+			yPos = grid.returnGridSize()[1];
+		}else{
+			yPos = newY;	
+		}
 	},
 
 	setDirection: function(str){
@@ -38,20 +102,38 @@ vehicle = {
 	report: function(){
 		console.log("Header direction: " + vehicle.getDirection());
 		console.log("Coordinates: " + vehicle.getCoords());
+	},
+
+	initialize: function(pos, dir){
+		vehicle.setDirection(dir);
+		vehicle.setPosition(pos[0], pos[1]);
+	},
+
+	reqPosition: function(){
+		validateStringEntered(requestNewPosition());
+		vehicle.report();
+		vehicle.reqPosition();
 	}
 }
 
-function initializeRover(){
+function init(){
+
 	console.log('little mars rover initialized...')
-	vehicle.setPosition(0,0);
-	vehicle.setDirection('North');
+	vehicle.initialize([0,0], 'North');
+
+	grid.addObstacle( obstacle.initialize('Roca', [1,1]));
+
+	console.log('fOBS coords: ', grid.getObstacles()[0].getCoords());
+
+	vehicle.initialize([0,0], 'North');
+	vehicle.reqPosition();
 }
 
-function init(){
-	initializeRover();
-	validateStringEntered(requestNewPosition());
-	vehicle.report();
-}
+
+
+
+
+
 
 function requestNewPosition(){
 
@@ -120,6 +202,26 @@ function moveRover(char){
 				break;
 			case "West":
 				vehicle.setPosition(cCoords[0]-1, cCoords[1]);
+				break;
+		}
+	}
+
+	if(char == "b"){
+
+		var cCoords = vehicle.getCoords();
+
+		switch(vehicle.getDirection()){
+			case "North":
+				vehicle.setPosition(cCoords[0], cCoords[1]-1);
+				break;
+			case "East":
+				vehicle.setPosition(cCoords[0]-1, cCoords[1]);
+				break;
+			case "South":
+				vehicle.setPosition(cCoords[0], cCoords[1]+1);
+				break;
+			case "West":
+				vehicle.setPosition(cCoords[0]+1, cCoords[1]);
 				break;
 		}
 	}
