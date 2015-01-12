@@ -275,7 +275,7 @@ function moveRover(char){
 				break;
 			case "South":
 				vehicle.setPosition(cCoords[0], cCoords[1]-1);
-				break;
+				break; 
 			case "West":
 				vehicle.setPosition(cCoords[0]-1, cCoords[1]);
 				break;
@@ -307,36 +307,3 @@ function moveRover(char){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function createGrid(xSize, ySize){
-// 	mContainer = document.getElementById('mainContainer');
-// 	canvas = document.createElement('canvas');
-// 	canvas.setAttribute('width', '1000');
-// 	canvas.setAttribute('height', '1000');
-// 	canvas.setAttribute('background', 'gray');
-// 	mContainer.appendChild(canvas);
-// }
-
-// <canvas id="myCanvas" width="200" height="100"
-// style="border:1px solid #000000;">
-// </canvas>

@@ -11,7 +11,6 @@ end
 def wordOrganizer()
 	puts "Enter the phrase to organize the words ignoring case...."
 	puts sortWords(gets.chomp.to_s)
-	wordOrganizer()
 end
 
 wordOrganizer()

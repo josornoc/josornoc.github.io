@@ -2,8 +2,7 @@ require 'date'
 
 class Item
 
-	attr_accessor :price
-	attr_accessor :discount
+	attr_accessor :price, :discount
 
 	@@total = 0
 
@@ -13,20 +12,12 @@ class Item
 	    @@total = @@total + 1
 	end
 
-	def discount()
-		return @discount
-	end
-
-	def price()
-		return @price
-	end
-
 	def setDiscount(discount)
 		@discount = discount
 	end
 
 	def finalPrice()
-		return price - discount
+		price - discount
 	end
 
 	def self.total()
@@ -109,7 +100,6 @@ class ShoppingCart
 	@totalPrice = 0;
 	@totalDiscount = 0;
 	@finalPrice = 0;
-
 	@@purchaseArray = []
 
 	def initialize()

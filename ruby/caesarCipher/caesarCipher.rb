@@ -1,39 +1,31 @@
-def replaceChars str, num
+def replace_chars(str, num)
 	rString = ""
 	str.split("").each do |letter|
 		rString << (letter.ord + num).chr 
 	end
-	return rString
+	rString
 end
 
-def encodeStr str, num
-
-	puts "Original: #{str}"
-
+def encode_str(str, num)
 	a = str.split(" ")
 	aReturn = []
-
 	a.each do |word|
-		aReturn << replaceChars(word, num)
+		aReturn << replace_chars(word, num)
 	end
-
 	aReturn = aReturn.join(" ")
-	puts "Result: #{aReturn}"
+	"Original: #{str} /// Result: #{aReturn}"
 end
 
-def requestMsgToCod
-	puts "Write a String to codify:"
-	msn = gets.chomp.to_s
-	puts "Write the number to shift character (< 0 to go left, > 0 to go right):"
-	num = gets.chomp.to_i
-
+def msg_to_cod(msn, num)
 	if(num < -75 || num > 100)
-		puts "nummber out of bounds, default -3"
+		raise "nummber out of bounds, default -3"
 		num = -3
 	end
-
-	encodeStr(msn, num)
-	requestMsgToCod();
+	encode_str(msn, num)
 end
 
-requestMsgToCod();
+puts "Write a String to codify:"
+msn = gets.chomp.to_s
+puts "Write the number to shift character (< 0 to go left, > 0 to go right):"
+num = gets.chomp.to_i
+puts msg_to_cod(msn, num);
