@@ -3,7 +3,6 @@ require 'date'
 class Subtitle
 
 	attr_reader :subtitles
-
 	def initialize
 		@subtitles = []
 	end
@@ -29,8 +28,10 @@ class Subtitle
 			@subtitles << ItemSubtitle.new( temp[0], t[0], t[1], finalText)			
 		end
 
+
 		@subtitles.each do |s|
 			s.modify_time
+			s.diccionario
 		end
 	end
 end
@@ -46,14 +47,40 @@ class ItemSubtitle
 		@text = text
 	end
 
-	def modify_time
+	def diccionario
+
+		palabras = @text.split #(" ")
+
+		palabras.each do |palabra|
+			
+			archivo_temp = IO.read("diccionario_palabras.txt")
+			palabra = palabra.split("<i>").join("")
+			palabra = palabra.split("</i>").join("")
+			palabra = palabra.gsub(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\-]/,"") 
+			
+			puts palabra
+			
+			#IO.write("diccionario_palabras.txt", archivo_temp + "\n" + palabra )
+
+		end
+	end
+
+	def modify_time(timeMil = -2500)
+
+		timeResult = timeMil / 1000
 
 		d = DateTime.parse(@sTime)
-		d = d + Rational(2.5, 86400)
+		d = d + Rational(timeResult, 86400)
+
+		t = DateTime.parse(@fTime)
+		t = t + Rational(timeResult, 86400)
 
 		puts "------"
 		puts DateTime.parse(@sTime)
 		puts d
+		puts "------"
+		puts DateTime.parse(@fTime)
+		puts t
 		puts "------"
 
 		#tiempo = 2500;
@@ -74,12 +101,9 @@ end
 
 mySubtitle = Subtitle.new
 mySubtitle.read_srt_file("limitless.srt")
-
-
-
-
-
 #puts mySubtitle.subtitles
+
+
 
 
 
