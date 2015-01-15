@@ -1,42 +1,17 @@
 class ValidateLogin
-
 	def initialize(name, pass)
-		@name = name
-		@pass = pass
-		@users = []
-		readAvailableUsers
-		tryLogIn
-	end
-
-	def readAvailableUsers
-
-		@usersDb = IO.read('users.txt')
-
-		@usersDb.each_line do |line|
-			tmp = line.split(",")
-			tmp[1] = tmp[1].split("\n").join("")
-			@users << {userName:tmp[0], userPass:tmp[1]}
-		end
-	end
-
-	def tryLogIn
-		@users.each do |user|
-			if user[:userName] == @name && user[:userPass] == @pass
-				puts " --- user and pass corrent - Logued in - Welcome #{user[:userName]} --- "
-				a = RequestText.new
-				return
-			else
-				puts " --- user and pass not founded --- "
-			end
+		if(name == "sean" && pass == "1234")
+			puts "You're logged in"
+			a = RequestText.new
+		else
+			puts "LIAR!!!!"
 		end
 	end
 end
 
 class RequestText
-
 	def initialize
-		
-		puts "Enter text to parse: "
+		puts "Enter text: "
 		@text = gets.chomp
 		myParseCLASS = ParseText.new(@text)
 		
@@ -66,6 +41,28 @@ class RequestText
 	end
 end
 
+class RequestInfo
+	def initialize
+		puts "What is your name: "
+		@name = gets.chomp
+		puts "Password: "
+		@pass = gets.chomp
+
+		validateLogin = ValidateLogin.new(@name, @pass)
+	end
+end
+
+class CountWords
+	def initialize(text)
+		@text = text
+		execute
+	end
+	def execute
+		@arrayOfWords = @text.split(" ")
+	end
+end
+
+
 class ParseText
 	def initialize(text)
 		@text = text
@@ -93,17 +90,7 @@ class ParseText
 	end
 end
 
-class RequestInfo
-	def start
-		puts "What is your name: "
-		@name = gets.chomp
-		puts "Password: "
-		@pass = gets.chomp
-		validateLogin = ValidateLogin.new(@name, @pass)
-	end
-end
-
-r = (RequestInfo.new).start
+r = RequestInfo.new
 
 
 
