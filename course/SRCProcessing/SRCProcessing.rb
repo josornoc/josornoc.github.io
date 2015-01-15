@@ -82,28 +82,11 @@ class ItemSubtitle
 		puts DateTime.parse(@fTime)
 		puts t
 		puts "------"
-
-		#tiempo = 2500;
-		#strftime([format='%FT%T%:z']) → string
-		#d = DateTime.parse(@sTime)  #.strftime([format='%H%M%S.%L'])
-		#puts d.strftime([format='%H%M%S.%L'])
-		#puts time
-
-		# d = DateTime.parse(@sTime) # + DateTime.parse["00:00:02,500"]
-		# d = d.strftime('%Q').to_i
-		# d += 2500
-
-		# e = DateTime.parse(d)
-		# puts e
-		
 	end
 end
 
 mySubtitle = Subtitle.new
 mySubtitle.read_srt_file("limitless.srt")
-#puts mySubtitle.subtitles
-
-
 
 
 
