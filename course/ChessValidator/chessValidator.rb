@@ -2,21 +2,21 @@ class PieceFactory
 
 	def self.from_string(string)
 
-		pieceString = string.split("")
+		sideString = string.split("")
 		
-		case pieceString[1]
+		case sideString[1]
 		when "P"
-			pieceToReturn = Peon.new(pieceString[0])
+			pieceToReturn = Peon.new(sideString[0])
 		when "R"
-			pieceToReturn = Rook.new(pieceString[0])
+			pieceToReturn = Rook.new(sideString[0])
 		when "N"
-			pieceToReturn = Knight.new(pieceString[0])
+			pieceToReturn = Knight.new(sideString[0])
 		when "B"
-			pieceToReturn = Bishop.new(pieceString[0])
+			pieceToReturn = Bishop.new(sideString[0])
 		when "Q"
-			pieceToReturn = Queen.new(pieceString[0])
+			pieceToReturn = Queen.new(sideString[0])
 		when "K"
-			pieceToReturn = King.new(pieceString[0])
+			pieceToReturn = King.new(sideString[0])
 		else
 			pieceToReturn = nil
 		end
@@ -89,7 +89,6 @@ class ChessMovesValidator
 			bSpace = bLine.split(" ")
 			@chessBoard.create_board_line(bLine)
 		end
-		@chessBoard.check_board_lines_collection
 	end
 
 	def process_moves(movesFileName)
@@ -145,17 +144,59 @@ class ChessBoard
 	end
 
 	def validate_movement(mvm)
-		puts
-		puts "validate_movement"
-		puts "check initial position " + mvm.initPos
-		puts "check final position " + mvm.finishPos
+		puts "pieces on init and final pos of movement"
+		p get_piece_on_position(mvm.initPos)
+		p get_piece_on_position(mvm.finishPos)
 	end
 
 	private
-	def get_piece_on_position(position)
+	def get_piece_on_position(iPosition)
+
+		firstChar = iPosition.split("")[0]
+		pieceCoords = []
+
+		case firstChar
+		when "a"
+			pieceCoords[0] = 0
+		when "b"
+			pieceCoords[0] = 1
+		when "c"
+			pieceCoords[0] = 2
+		when "d"
+			pieceCoords[0] = 3
+		when "e"
+			pieceCoords[0] = 4
+		when "f"
+			pieceCoords[0] = 5
+		when "g"
+			pieceCoords[0] = 6
+		when "h"
+			pieceCoords[0] = 7
+		end
+
+		lastChar = iPosition.split("")[1].to_i
+		case lastChar
+		when 1
+			pieceCoords[1] = 0
+		when 2
+			pieceCoords[1] = 1
+		when 3
+			pieceCoords[1] = 2
+		when 4
+			pieceCoords[1] = 3
+		when 5
+			pieceCoords[1] = 4
+		when 6
+			pieceCoords[1] = 5
+		when 7
+			pieceCoords[1] = 6
+		when 8
+			pieceCoords[1] = 7
+		end
+
+		@boardLineCollection[pieceCoords[1]][pieceCoords[0]]
 	end
 end
-
 
 
 #DRIVER CODE
