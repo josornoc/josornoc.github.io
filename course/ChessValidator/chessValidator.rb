@@ -1,3 +1,30 @@
+class PieceFactory
+
+	def self.from_string(string)
+
+		pieceString = string.split("")
+		
+		case pieceString[1]
+		when "P"
+			pieceToReturn = Peon.new(pieceString[0])
+		when "R"
+			pieceToReturn = Rook.new(pieceString[0])
+		when "N"
+			pieceToReturn = Knight.new(pieceString[0])
+		when "B"
+			pieceToReturn = Bishop.new(pieceString[0])
+		when "Q"
+			pieceToReturn = Queen.new(pieceString[0])
+		when "K"
+			pieceToReturn = King.new(pieceString[0])
+		else
+			pieceToReturn = nil
+		end
+
+		pieceToReturn
+	end
+end
+
 class Piece
 	def initialize(side)
 		@side = side
@@ -49,17 +76,13 @@ class ChessMovesValidator
 	end
 
 	def parseChessFiles( boardFileName, movesFileName )
-		createBoardInstance
-		processBoardFile(boardFileName)
-		processMoves(movesFileName)
-	end
-
-	def createBoardInstance
 		@chessBoard = ChessBoard.new
+		process_board(boardFileName)
+		process_moves(movesFileName)
 	end
 
 	private
-	def processBoardFile( boardFileName )
+	def process_board( boardFileName )
 		bfn = IO.read(boardFileName)
 		bfn = bfn.split("\n");
 		bfn.each do |bLine|
@@ -69,21 +92,25 @@ class ChessMovesValidator
 		@chessBoard.check_board_lines_collection
 	end
 
-	def processMoves(movesFileName)
+	def process_moves(movesFileName)
 		@moves = IO.read(movesFileName)
 		movesTmp = @moves.split("\n")
 		movesTmp.each do |move|
 			t = move.split(" ")
 			@movesCollection << PieceMovement.new(t[0],t[1])
 		end
-		puts
-		puts
-		puts
-		print @movesCollection
+		check_movement_array(@movesCollection)
+	end
+
+	def check_movement_array(mvmArray)
+		mvmArray.each do |pMov|
+			@chessBoard.validate_movement(pMov)
+		end
 	end
 end
 
 class PieceMovement
+	attr_reader :initPos, :finishPos
 	def initialize(initPos, finishPos)
 		@initPos = initPos
 		@finishPos = finishPos
@@ -113,39 +140,19 @@ class ChessBoard
 		piecesClassArray
 	end
 
-	def get_board_size
-		@boardSideSize = Math.sqrt(@boardSpacesCollection.length)
-	end
-
 	def check_board_lines_collection
 		print @boardLineCollection
 	end
-end
 
-class PieceFactory
+	def validate_movement(mvm)
+		puts
+		puts "validate_movement"
+		puts "check initial position " + mvm.initPos
+		puts "check final position " + mvm.finishPos
+	end
 
-	def self.from_string(string)
-
-		pieceString = string.split("")
-		
-		case pieceString[1]
-		when "P"
-			pieceToReturn = Peon.new(pieceString[0])
-		when "R"
-			pieceToReturn = Rook.new(pieceString[0])
-		when "N"
-			pieceToReturn = Knight.new(pieceString[0])
-		when "B"
-			pieceToReturn = Bishop.new(pieceString[0])
-		when "Q"
-			pieceToReturn = Queen.new(pieceString[0])
-		when "K"
-			pieceToReturn = King.new(pieceString[0])
-		else
-			pieceToReturn = nil
-		end
-
-		pieceToReturn
+	private
+	def get_piece_on_position(position)
 	end
 end
 
