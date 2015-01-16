@@ -18,6 +18,7 @@ end
 class DisplayText
 
 	def initialize(slideArray)
+		@qLinesPerSlide = []
 		@numOfVerticalLines = TermInfo.screen_size[0] / 2
 		@numOfHorizontalChars = TermInfo.screen_size[1] / 2
 		@slideArray = slideArray
@@ -29,8 +30,8 @@ class DisplayText
 		qSpaces
 	end
 
-	def printBlnkLines
-		@numOfVerticalLines.times do |line|
+	def printBlnkLines(num)
+		num.times do |line|
 			puts ""
 		end
 	end
@@ -50,18 +51,20 @@ class DisplayText
 
 			tmpVar = word.split("\n")
 
-			tmpVar.each do |tmpLine|
-				puts addBlankCharacters(tmpLine)
-			end
+			@qLinesPerSlide << tmpVar.length
 
-			#word = addBlankCharacters(word)
+			tmpVar.each do |tmpLine|
+				word = addBlankCharacters(tmpLine)
+				puts word
+			end
 		end
 	end
 
-	def centerString(str)
-		printBlnkLines
-		puts printSlides(str)
-		printBlnkLines
+	def centerString(currentSlide)
+		mQuanBreaklines = @numOfVerticalLines - @qLinesPerSlide[currentSlide]
+		printBlnkLines(mQuanBreaklines)
+		puts @slideArray[currentSlide]
+		printBlnkLines(mQuanBreaklines)
 	end
 end
 
@@ -85,7 +88,7 @@ class SlideShow
 	end
 
 	def showSlide
-		@dp.centerString(@slides[@currentSlide])
+		@dp.centerString(@currentSlide)
 		if(@autoAdvance)	
 			startAutoAdvance
 		else
@@ -135,8 +138,7 @@ end
 
 #DRIVER CODE
 mySlideShow = SlideShow.new("terminalSlides.txt")
-
-#mySlideShow.showSlide
+mySlideShow.showSlide
 
 
 
