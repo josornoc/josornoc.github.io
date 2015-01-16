@@ -141,43 +141,53 @@ class ChessBoard
 
 	def validate_movement(mvm)
 
-		pieceOnFirstPosition = init_movement_validation(mvm)
+		pieceOnFirstPosition = init_movement_validation(mvm.initPos)
+		pieceOnLastPosition = init_movement_validation(mvm.finishPos)
 
-		if(pieceOnFirstPosition == nil)			
-			return @isMvmPosible
-		else
-			check_final_position(pieceOnFirstPosition, mvm)
+		if( pieceOnFirstPosition != nil )
+
+			mvmRulesValid = check_piece_movement_rules(pieceOnFirstPosition, mvm.initPos, mvm.finishPos)		
+			friendOndestination = eval_if_different_sides(pieceOnFirstPosition, pieceOnLastPosition)
+
+			if(mvmRulesValid && !friendOndestination )
+
+				puts " MVM VALID ---- Available in piece rules... "
+
+			elsif mvmRulesValid && friendOndestination
+
+				puts " MVM VALID BUT FRIEND ON DESTINATION "
+
+			elsif mvmRulesValid && pieceOnLastPosition == nil
+
+				puts " MVM VALID DESTINATION EMPTY "
+			end
 		end
 
-		if @isMvmPosible
-			puts "Its okay, the piece can take the rival one..... "
-			check_piece_movement_rules(pieceOnFirstPosition, mvm.initPos, mvm.finishPos)	
-		else
-			puts "Movement invalid, cannot move to the same place where a friend is..... "
-		end
-		
+		# if( pieceOnFirstPosition != nil )
+		# 	mvmRulesValid = check_piece_movement_rules(pieceOnFirstPosition, mvm.initPos, mvm.finishPos)		
+		# 	if mvmRulesValid
+		# 		puts " MVM VALID ---- Available in piece rules... "
+		# 	else
+		# 		puts " MVM INVALID ---- Unavailable in piece rules... "
+		# 	end
+		# else
+		# 	puts " MVM INVALID ---- No piece on starting position... "
+		# end
 	end
 
 	private
-	def init_movement_validation(mvm)
-		@isMvmPosible = false
-		get_piece_on_position(mvm.initPos)
+	def init_movement_validation(pos)
+		get_piece_on_position(pos)
 	end
 
-	def check_final_position(piece1, mvm)
-		pieceOnFinalPosition  = get_piece_on_position(mvm.finishPos)
-		if( pieceOnFinalPosition != nil )
-			eval_if_different_sizes(piece1, pieceOnFinalPosition)
-		end
-	end
-
-	def eval_if_different_sizes(piece1, piece2)
+	def eval_if_different_sides(piece1, piece2)
+		booleanReturn = false
 		if( piece1.side != piece2.side )
-			@isMvmPosible = true
+			booleanReturn = true
 		else
-			@isMvmPosible = false
-			return @isMvmPosible
+			booleanReturn = false
 		end
+		booleanReturn
 	end
 
 	def get_piece_on_position(iPosition)
@@ -234,20 +244,19 @@ class ChessBoard
 end
 
 class Rook < Piece
-
 	def initialize(side)
-		@rules = ["sameColumn", "sameRow"]
 		super(side)
 	end
-
 	def evaluate_mvm_rules(p1, p2)
+		booleanReturn = false
 		if(p1[0] == p2[0])
-			puts "same column ---- movement okay"
+			booleanReturn = true
 		elsif (p1[1] == p2[1])
-			puts "same row ---- movement okay"
+			booleanReturn = true
 		else
-			puts "not the same column or row --- movement not okay"
+			booleanReturn = false
 		end
+		booleanReturn
 	end
 end
 
