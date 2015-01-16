@@ -53,10 +53,9 @@ class DisplayText
 
 			@qLinesPerSlide << tmpVar.length
 
-			tmpVar.each do |tmpLine|
-				word = addBlankCharacters(tmpLine)
-				puts word
-			end
+			# tmpVar.each do |tmpLine|
+			# 	tmpLine = addBlankCharacters(tmpLine)
+			# end
 		end
 	end
 
