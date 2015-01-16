@@ -99,16 +99,18 @@ class ChessMovesValidator
 
 	def check_movement_array(mvmArray)
 		mvmArray.each do |pMov|
-			@chessBoard.validate_movement(pMov)
+			pMov.isValid = @chessBoard.validate_movement(pMov)
 		end
 	end
 end
 
 class PieceMovement
 	attr_reader :initPos, :finishPos
+	attr_writer :isValid
 	def initialize(initPos, finishPos)
 		@initPos = initPos
 		@finishPos = finishPos
+		@isValid = "NOT TESTED"
 	end
 end
 
@@ -140,54 +142,16 @@ class ChessBoard
 	end
 
 	def validate_movement(mvm)
-
-		pieceOnFirstPosition = init_movement_validation(mvm.initPos)
-		pieceOnLastPosition = init_movement_validation(mvm.finishPos)
-
-		if( pieceOnFirstPosition != nil )
-
-			mvmRulesValid = check_piece_movement_rules(pieceOnFirstPosition, mvm.initPos, mvm.finishPos)		
-			friendOndestination = eval_if_different_sides(pieceOnFirstPosition, pieceOnLastPosition)
-
-			if(mvmRulesValid && !friendOndestination )
-
-				puts " MVM VALID ---- Available in piece rules... "
-
-			elsif mvmRulesValid && friendOndestination
-
-				puts " MVM VALID BUT FRIEND ON DESTINATION "
-
-			elsif mvmRulesValid && pieceOnLastPosition == nil
-
-				puts " MVM VALID DESTINATION EMPTY "
-			end
-		end
-
-		# if( pieceOnFirstPosition != nil )
-		# 	mvmRulesValid = check_piece_movement_rules(pieceOnFirstPosition, mvm.initPos, mvm.finishPos)		
-		# 	if mvmRulesValid
-		# 		puts " MVM VALID ---- Available in piece rules... "
-		# 	else
-		# 		puts " MVM INVALID ---- Unavailable in piece rules... "
-		# 	end
-		# else
-		# 	puts " MVM INVALID ---- No piece on starting position... "
-		# end
+		#RETURN TRUE IS VALID AND FALSE IF INVALID
+		puts "validate_movement: " 
+		pieceOnFirstPosition = get_piece_on_position(mvm.initPos)
+		puts 
+		p pieceOnFirstPosition
 	end
 
 	private
-	def init_movement_validation(pos)
-		get_piece_on_position(pos)
-	end
-
 	def eval_if_different_sides(piece1, piece2)
-		booleanReturn = false
-		if( piece1.side != piece2.side )
-			booleanReturn = true
-		else
-			booleanReturn = false
-		end
-		booleanReturn
+		piece2 == nil || piece1.side != piece2.side
 	end
 
 	def get_piece_on_position(iPosition)
