@@ -145,11 +145,14 @@ class ChessBoard
 		#RETURN TRUE IS VALID AND FALSE IF INVALID
 		puts "validate_movement: " 
 		pieceOnFirstPosition = get_piece_on_position(mvm.initPos)
-		puts 
-		p pieceOnFirstPosition
+		get_piece_movement_route(pieceOnFirstPosition)
 	end
 
 	private
+	def get_piece_movement_route(piece, finalPos)
+
+	end
+
 	def eval_if_different_sides(piece1, piece2)
 		piece2 == nil || piece1.side != piece2.side
 	end
