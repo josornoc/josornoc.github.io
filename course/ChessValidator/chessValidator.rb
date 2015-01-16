@@ -26,6 +26,7 @@ class PieceFactory
 end
 
 class Piece
+	attr_reader :side
 	def initialize(side)
 		@side = side
 	end
@@ -38,12 +39,6 @@ class King < Piece
 end
 
 class Queen < Piece
-	def initialize(side)
-		super(side)
-	end
-end
-
-class Rook < Piece
 	def initialize(side)
 		super(side)
 	end
@@ -65,6 +60,7 @@ class Peon < Piece
 	def initialize(side)
 		super(side)
 	end
+
 end
 
 
@@ -144,12 +140,46 @@ class ChessBoard
 	end
 
 	def validate_movement(mvm)
-		puts "pieces on init and final pos of movement"
-		p get_piece_on_position(mvm.initPos)
-		p get_piece_on_position(mvm.finishPos)
+
+		pieceOnFirstPosition = init_movement_validation(mvm)
+
+		if(pieceOnFirstPosition == nil)			
+			return @isMvmPosible
+		else
+			check_final_position(pieceOnFirstPosition, mvm)
+		end
+
+		if @isMvmPosible
+			puts "Its okay, the piece can take the rival one..... "
+			check_piece_movement_rules(pieceOnFirstPosition, mvm.initPos, mvm.finishPos)	
+		else
+			puts "Movement invalid, cannot move to the same place where a friend is..... "
+		end
+		
 	end
 
 	private
+	def init_movement_validation(mvm)
+		@isMvmPosible = false
+		get_piece_on_position(mvm.initPos)
+	end
+
+	def check_final_position(piece1, mvm)
+		pieceOnFinalPosition  = get_piece_on_position(mvm.finishPos)
+		if( pieceOnFinalPosition != nil )
+			eval_if_different_sizes(piece1, pieceOnFinalPosition)
+		end
+	end
+
+	def eval_if_different_sizes(piece1, piece2)
+		if( piece1.side != piece2.side )
+			@isMvmPosible = true
+		else
+			@isMvmPosible = false
+			return @isMvmPosible
+		end
+	end
+
 	def get_piece_on_position(iPosition)
 
 		firstChar = iPosition.split("")[0]
@@ -174,6 +204,7 @@ class ChessBoard
 			pieceCoords[0] = 7
 		end
 
+		#use ZIP method to resume these extra lines
 		lastChar = iPosition.split("")[1].to_i
 		case lastChar
 		when 1
@@ -196,11 +227,45 @@ class ChessBoard
 
 		@boardLineCollection[pieceCoords[1]][pieceCoords[0]]
 	end
+
+	def check_piece_movement_rules(piece, p1, p2)
+		piece.evaluate_mvm_rules(p1, p2)
+	end	
+end
+
+class Rook < Piece
+
+	def initialize(side)
+		@rules = ["sameColumn", "sameRow"]
+		super(side)
+	end
+
+	def evaluate_mvm_rules(p1, p2)
+		if(p1[0] == p2[0])
+			puts "same column ---- movement okay"
+		elsif (p1[1] == p2[1])
+			puts "same row ---- movement okay"
+		else
+			puts "not the same column or row --- movement not okay"
+		end
+	end
 end
 
 
 #DRIVER CODE
 cmv = ChessMovesValidator.new("simple_board.txt", "simple_moves.txt");
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
