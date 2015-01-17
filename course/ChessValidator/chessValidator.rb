@@ -68,10 +68,10 @@ class ChessMovesValidator
 
 	def initialize( boardFileName, movesFileName )
 		@movesCollection = []
-		parseChessFiles(boardFileName,movesFileName)		
+		parse_chess_file(boardFileName,movesFileName)		
 	end
 
-	def parseChessFiles( boardFileName, movesFileName )
+	def parse_chess_file( boardFileName, movesFileName )
 		@chessBoard = ChessBoard.new
 		process_board(boardFileName)
 		process_moves(movesFileName)
@@ -143,14 +143,20 @@ class ChessBoard
 
 	def validate_movement(mvm)
 		#RETURN TRUE IS VALID AND FALSE IF INVALID
-		puts "validate_movement: " 
 		pieceOnFirstPosition = get_piece_on_position(mvm.initPos)
-		get_piece_movement_route(pieceOnFirstPosition)
+		pieceOnLastPosition = get_piece_on_position(mvm.finishPos)
+		pieceMvmRoute = get_piece_movement_route(pieceOnFirstPosition, mvm.initPos, mvm.finishPos)
 	end
 
 	private
-	def get_piece_movement_route(piece, finalPos)
-
+	def get_piece_movement_route(piece, firstPos, finalPos)
+		#detect route regarding piece movement rules
+		#route must be an array of positions
+		#array must be checked if something is placed of each position
+		#if a friend is mvm is invalid
+		#if Knight this is overriden, no matter what....
+		#if a foe is on route, not in final position the mvm is also invalidated
+		piece.get_route_positions_array(firstPos, finalPos)
 	end
 
 	def eval_if_different_sides(piece1, piece2)
@@ -158,50 +164,11 @@ class ChessBoard
 	end
 
 	def get_piece_on_position(iPosition)
-
 		firstChar = iPosition.split("")[0]
 		pieceCoords = []
-
-		case firstChar
-		when "a"
-			pieceCoords[0] = 0
-		when "b"
-			pieceCoords[0] = 1
-		when "c"
-			pieceCoords[0] = 2
-		when "d"
-			pieceCoords[0] = 3
-		when "e"
-			pieceCoords[0] = 4
-		when "f"
-			pieceCoords[0] = 5
-		when "g"
-			pieceCoords[0] = 6
-		when "h"
-			pieceCoords[0] = 7
-		end
-
-		#use ZIP method to resume these extra lines
+		pieceCoords[0] = CoordConverter.get_number_of_string_char(firstChar)
 		lastChar = iPosition.split("")[1].to_i
-		case lastChar
-		when 1
-			pieceCoords[1] = 0
-		when 2
-			pieceCoords[1] = 1
-		when 3
-			pieceCoords[1] = 2
-		when 4
-			pieceCoords[1] = 3
-		when 5
-			pieceCoords[1] = 4
-		when 6
-			pieceCoords[1] = 5
-		when 7
-			pieceCoords[1] = 6
-		when 8
-			pieceCoords[1] = 7
-		end
-
+		pieceCoords[1] = lastChar - 1
 		@boardLineCollection[pieceCoords[1]][pieceCoords[0]]
 	end
 
@@ -225,7 +192,21 @@ class Rook < Piece
 		end
 		booleanReturn
 	end
+	def get_route_positions_array(p1, p2)
+		puts "get_route_positions_array"	
+		puts "column: " + CoordConverter.get_number_of_string_char(p1[0]).to_s
+		puts "row: " + p1[1].to_s
+	end
 end
+
+class CoordConverter
+	def self.get_number_of_string_char(stringChar)
+		charArray = ("a".."z").to_a
+		rCoordNum = charArray.index(stringChar)
+		rCoordNum
+	end
+end
+
 
 
 #DRIVER CODE
