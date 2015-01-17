@@ -6,7 +6,7 @@ class PieceFactory
 		
 		case sideString[1]
 		when "P"
-			pieceToReturn = Peon.new(sideString[0])
+			pieceToReturn = Pawn.new(sideString[0])
 		when "R"
 			pieceToReturn = Rook.new(sideString[0])
 		when "N"
@@ -59,7 +59,7 @@ class Bishop < Piece
 	end
 end
 
-class Peon < Piece
+class Pawn < Piece
 	def initialize(side)
 		super(side)
 	end
@@ -147,21 +147,25 @@ class ChessBoard
 
 	private
 	def get_piece_movement_route(piece, firstPos, finalPos)
-		#detect route regarding piece movement rules
-		#route must be an array of positions
-		#array must be checked if something is placed of each position
+
 		#if a friend is mvm is invalid
 		#if Knight this is overriden, no matter what....
 		#if a foe is on route, not in final position the mvm is also invalidated
+
 		puts "Get_piece_movement_route "
 		gRouteArray = piece.get_route_positions_array(firstPos, finalPos)
 		if(gRouteArray != nil)
 			gRouteArray.each do |position|
-				p position
+				eval_route_next_step(position)
 			end
 		else
-			pust "gRouteArray is nil"
+			puts "gRouteArray is nil"
 		end
+	end
+
+	def eval_route_next_step(stepPosition)
+		puts "eval_route_next_step"
+		puts stepPosition
 	end
 
 	def eval_if_different_sides(piece1, piece2)
@@ -192,11 +196,26 @@ end
 
 class Routes
 	def self.get_route_from_coords(coord1, coord2, rTypes)
-		if coord1[0] == coord2[0] && rTypes.index("vertical") > -1
+
+		@typesChkdAry = []
+
+		rTypes.each do |routeType|
+			case routeType
+			when "vertical"
+			when "horizontal"
+			when "diagonal"
+			when "lShaped"
+			end
+		end
+
+		if self.check_if_vertical(coord1, coord2, rTypes)
 			get_vertical_route(coord1, coord2)
 		else
 			nil
 		end
+	end
+	def self.check_if_vertical(coord1, coord2, rTypes)
+		coord1[0] == coord2[0] && rTypes.index("vertical") > -1
 	end
 	def self.get_vertical_route(coord1, coord2)
 		if(coord1[1] > coord2[1])
@@ -205,10 +224,13 @@ class Routes
 		else
 			tArray = (coord1[1]..coord2[1]).to_a
 		end
+
 		tmpArray = []
 		tArray.each do |i|
 			tmpArray << CoordConverter.get_stringchar_of_number(coord1[0])+(i+1).to_s
 		end
+
+		tmpArray = tmpArray[1,tmpArray.length-1]
 		tmpArray
 	end
 end
