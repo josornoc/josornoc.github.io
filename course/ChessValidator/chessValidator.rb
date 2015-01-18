@@ -128,16 +128,6 @@ class ChessBoard
 		@boardLineCollection << boardLine
 	end
 
-	def create_board_spaces(boardLine)
-		piecesClassArray = []
-		t = boardLine.split(" ")
-		t.each do |space|
-			space = PieceFactory.from_string(space)
-			piecesClassArray << space
-		end
-		piecesClassArray
-	end
-
 	def validate_movement(mvm)
 		#RETURN TRUE IS VALID AND FALSE IF INVALID
 		pieceOnFirstPosition = get_piece_on_position(mvm.initPos)
@@ -154,22 +144,14 @@ class ChessBoard
 
 		puts "Get_piece_movement_route "
 		gRouteArray = piece.get_route_positions_array(firstPos, finalPos)
-		if(gRouteArray != nil)
-			gRouteArray.each do |position|
-				eval_route_next_step(position)
-			end
-		else
-			puts "gRouteArray is nil"
-		end
-	end
 
-	def eval_route_next_step(stepPosition)
-		puts "eval_route_next_step"
-		puts stepPosition
-	end
-
-	def eval_if_different_sides(piece1, piece2)
-		piece1.side != piece2.side
+		# if(gRouteArray != nil)
+		# 	gRouteArray.each do |position|
+		# 		eval_route_next_step(position)
+		# 	end
+		# else
+		# 	puts "gRouteArray is nil"
+		# end
 	end
 
 	def get_piece_on_position(pos)
@@ -180,6 +162,26 @@ class ChessBoard
 		pieceCoords[1] = lastChar - 1
 		@boardLineCollection[pieceCoords[1]][pieceCoords[0]]
 	end
+
+	def eval_route_next_step(stepPosition)
+		puts "eval_route_next_step"
+		puts stepPosition
+	end
+
+	def create_board_spaces(boardLine)
+		piecesClassArray = []
+		t = boardLine.split(" ")
+		t.each do |space|
+			space = PieceFactory.from_string(space)
+			piecesClassArray << space
+		end
+		piecesClassArray
+	end
+
+	def eval_if_different_sides(piece1, piece2)
+		piece1.side != piece2.side
+	end
+
 end
 
 class Rook < Piece
@@ -189,7 +191,7 @@ class Rook < Piece
 	def get_route_positions_array(p1, p2)
 		fPosCoords = [CoordConverter.get_number_of_stringchar(p1[0]), p1[1].to_i - 1]
 		fPos2Coords = [CoordConverter.get_number_of_stringchar(p2[0]), p2[1].to_i - 1]
-		gRouteArray = Routes.get_route_from_coords(fPosCoords, fPos2Coords, ["horizontal", "vertical"])
+		gRouteArray = Routes.get_route_from_coords(fPosCoords, fPos2Coords, ["vertical", "horizontal"])
 		gRouteArray
 	end
 end
@@ -197,25 +199,43 @@ end
 class Routes
 	def self.get_route_from_coords(coord1, coord2, rTypes)
 
-		@typesChkdAry = []
+		hashResult = self.get_boolean_hash_of_route_types(coord1, coord2, rTypes)
 
-		rTypes.each do |routeType|
-			case routeType
-			when "vertical"
-			when "horizontal"
-			when "diagonal"
-			when "lShaped"
+		hashResult.each do |item, x|
+			if x == true
+				p item
 			end
 		end
 
-		if self.check_if_vertical(coord1, coord2, rTypes)
-			get_vertical_route(coord1, coord2)
-		else
-			nil
+		# if self.check_if_vertical(coord1, coord2, rTypes)
+		# 	get_vertical_route(coord1, coord2)
+		# else
+		# 	nil
+		# end
+	end
+	def self.get_boolean_hash_of_route_types(coord1, coord2, rTypes)
+		booleanResultRouteType = []
+		rTypes.each do |routeType|
+			case routeType
+			when "vertical"
+				booleanResultRouteType << self.check_if_vertical(coord1, coord2, rTypes)
+			when "horizontal"
+				booleanResultRouteType << self.check_if_horizontal(coord1, coord2, rTypes)
+			when "diagonal"
+				puts "check diagonal found"
+			end
 		end
+		rHash = rTypes.zip(booleanResultRouteType).to_h
+		rHash
 	end
 	def self.check_if_vertical(coord1, coord2, rTypes)
 		coord1[0] == coord2[0] && rTypes.index("vertical") > -1
+	end
+	def self.check_if_horizontal(coord1, coord2, rTypes)
+		coord1[1] == coord2[1] && rTypes.index("horizontal") > -1
+	end
+	def self.get_horizontal_route(coord1, coord2)
+		false
 	end
 	def self.get_vertical_route(coord1, coord2)
 		if(coord1[1] > coord2[1])
