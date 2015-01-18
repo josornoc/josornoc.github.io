@@ -218,7 +218,9 @@ class Routes
 				when "diagonal"
 				routeArray = get_diagonal_route(coord1, coord2)
 				when "oneStep"
-				puts "oneStep - recortar array..."
+				#routeArray = get_onestep_route(routeArray)
+				puts "oneStep"
+				p routeArray
 				end
 			end
 		end
@@ -247,6 +249,9 @@ class Routes
 	def self.cut_first_element_of_array(ary)
 		tmpArray = ary[1,ary.length-1]
 		tmpArray
+	end
+	def self.get_onestep_route(coord1, coord2)
+
 	end
 	def self.get_diagonal_route(coord1, coord2)
 		#NEED TO REFACTOR THIS METHOD
