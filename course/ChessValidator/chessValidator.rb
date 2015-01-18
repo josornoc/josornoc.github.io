@@ -25,47 +25,6 @@ class PieceFactory
 	end
 end
 
-class Piece
-	attr_reader :side
-	def initialize(side)
-		@side = side
-	end
-	def method_missing(m, *args, &block)
-		puts "Method called '" + m.to_s + "' doesn't exists in this Piece yet..."
-	end
-end
-
-class King < Piece
-	def initialize(side)
-		super(side)
-	end
-end
-
-class Queen < Piece
-	def initialize(side)
-		super(side)
-	end
-end
-
-class Knight < Piece
-	def initialize(side)
-		super(side)
-	end
-end
-
-class Bishop < Piece
-	def initialize(side)
-		super(side)
-	end
-end
-
-class Pawn < Piece
-	def initialize(side)
-		super(side)
-	end
-end
-
-
 class ChessMovesValidator
 
 	def initialize( boardFileName, movesFileName )
@@ -141,9 +100,14 @@ class ChessBoard
 		#if a friend is mvm is invalid
 		#if Knight this is overriden, no matter what....
 		#if a foe is on route, not in final position the mvm is also invalidated
+		#puts "Piece"
+		#puts piece
 
+		p "get_piece_movement_route"
+		p piece
 		puts "Get_piece_movement_route "
 		gRouteArray = piece.get_route_positions_array(firstPos, finalPos)
+		p gRouteArray
 
 		# if(gRouteArray != nil)
 		# 	gRouteArray.each do |position|
@@ -181,76 +145,165 @@ class ChessBoard
 	def eval_if_different_sides(piece1, piece2)
 		piece1.side != piece2.side
 	end
+end
 
+class Piece
+	attr_reader :side
+	def initialize(side, rules)
+		@side = side
+		@rules = rules
+	end
+	def get_route_positions_array(p1, p2)
+		@fPosCoords = [CoordConverter.get_number_of_stringchar(p1[0]), p1[1].to_i - 1]
+		@fPos2Coords = [CoordConverter.get_number_of_stringchar(p2[0]), p2[1].to_i - 1]
+		gRouteArray = Routes.get_route_from_coords(@fPosCoords, @fPos2Coords, @rules)
+		gRouteArray
+	end
+	def method_missing(m, *args, &block)
+		puts "Method called '" + m.to_s + "' doesn't exists in this Piece yet..."
+	end
 end
 
 class Rook < Piece
 	def initialize(side)
-		super(side)
+		rules = ["vertical", "horizontal"]
+		super(side, rules)
 	end	
-	def get_route_positions_array(p1, p2)
-		fPosCoords = [CoordConverter.get_number_of_stringchar(p1[0]), p1[1].to_i - 1]
-		fPos2Coords = [CoordConverter.get_number_of_stringchar(p2[0]), p2[1].to_i - 1]
-		gRouteArray = Routes.get_route_from_coords(fPosCoords, fPos2Coords, ["vertical", "horizontal"])
-		gRouteArray
+end
+
+class Queen < Piece
+	def initialize(side)
+		rules = ["vertical", "horizontal", "diagonal"]
+		super(side, rules)
+	end
+end
+
+class Bishop < Piece
+	def initialize(side)
+		rules = ["diagonal"]
+		super(side, rules)
+	end
+end
+
+class King < Piece
+	def initialize(side)
+		rules = ["vertical", "horizontal", "diagonal", "oneStep"]
+		super(side, rules)
+	end
+end
+
+class Knight < Piece
+	def initialize(side)
+		super(side)
+	end
+end
+
+class Pawn < Piece
+	def initialize(side)
+		super(side)
 	end
 end
 
 class Routes
 	def self.get_route_from_coords(coord1, coord2, rTypes)
-
 		hashResult = self.get_boolean_hash_of_route_types(coord1, coord2, rTypes)
-
-		hashResult.each do |item, x|
-			if x == true
-				p item
+		routeArray = []
+		hashResult.each do |key, value|
+			if(value)
+				case key
+				when "vertical"
+				routeArray = get_vertical_route(coord1, coord2)
+				when "horizontal"
+				routeArray = get_horizontal_route(coord1, coord2)
+				when "diagonal"
+				routeArray = get_diagonal_route(coord1, coord2)
+				when "oneStep"
+				puts "oneStep - recortar array..."
+				end
 			end
 		end
-
-		# if self.check_if_vertical(coord1, coord2, rTypes)
-		# 	get_vertical_route(coord1, coord2)
-		# else
-		# 	nil
-		# end
+		routeArray
 	end
 	def self.get_boolean_hash_of_route_types(coord1, coord2, rTypes)
-		booleanResultRouteType = []
+		boolResRType = []
 		rTypes.each do |routeType|
 			case routeType
 			when "vertical"
-				booleanResultRouteType << self.check_if_vertical(coord1, coord2, rTypes)
+				boolResRType << eval_if_equal(coord1[0],coord2[0])
 			when "horizontal"
-				booleanResultRouteType << self.check_if_horizontal(coord1, coord2, rTypes)
+				boolResRType << eval_if_equal(coord1[1],coord2[1])
 			when "diagonal"
-				puts "check diagonal found"
+				boolResRType << eval_if_equal((coord1[0] - coord2[0]).abs,(coord1[1] - coord2[1]).abs)
+			when "oneStep"
+				puts "get_boolean_hash_of_route_types oneStep - recortar array..."
 			end
 		end
-		rHash = rTypes.zip(booleanResultRouteType).to_h
+		rHash = rTypes.zip(boolResRType).to_h
 		rHash
 	end
-	def self.check_if_vertical(coord1, coord2, rTypes)
-		coord1[0] == coord2[0] && rTypes.index("vertical") > -1
+	def self.eval_if_equal(s1, s2)
+		s1 == s2
 	end
-	def self.check_if_horizontal(coord1, coord2, rTypes)
-		coord1[1] == coord2[1] && rTypes.index("horizontal") > -1
+	def self.cut_first_element_of_array(ary)
+		tmpArray = ary[1,ary.length-1]
+		tmpArray
 	end
-	def self.get_horizontal_route(coord1, coord2)
-		false
-	end
-	def self.get_vertical_route(coord1, coord2)
-		if(coord1[1] > coord2[1])
-			tArray = (coord2[1]..coord1[1]).to_a
-			tArray = tArray.reverse
+	def self.get_diagonal_route(coord1, coord2)
+		#NEED TO REFACTOR THIS METHOD
+		if coord1[0] > coord2[0]
+			tAry1 = (coord2[0]..coord1[0]).to_a
 		else
-			tArray = (coord1[1]..coord2[1]).to_a
+			tAry1 = (coord1[0]..coord2[0]).to_a
 		end
 
+		if coord1[1] > coord2[1]
+			tAry2 = (coord2[1]..coord1[1]).to_a
+		else
+			tAry2 = (coord1[1]..coord2[1]).to_a
+		end
+
+		if coord1[0] < coord2[0] && coord1[1] > coord2[1] 
+			tAry2 = tAry2.reverse
+		elsif coord1[0] > coord2[0] && coord1[1] < coord2[1]  
+			tAry1 = tAry1.reverse			
+		elsif coord1[0] > coord2[0] && coord1[1] > coord2[1]  
+			tAry1 = tAry1.reverse
+			tAry2 = tAry2.reverse
+		end
+		tmpArray = []
+		tAry1.each_with_index do |item, i|
+			tmpArray << CoordConverter.get_stringchar_of_number(item) + (tAry2[i]+1).to_s
+		end
+		tmpArray = cut_first_element_of_array(tmpArray)
+		tmpArray
+	end
+
+	def self.return_ordered_array(coord1, coord2, i)
+		if coord1[i] > coord2[i]
+			tArray = (coord2[i]..coord1[i]).to_a
+			tArray = tArray.reverse
+		else
+			tArray = (coord1[i]..coord2[i]).to_a
+		end
+		tArray
+	end
+
+	def self.get_horizontal_route(coord1, coord2)
+		tArray = return_ordered_array(coord1, coord2, 0)
+		tmpArray = []
+		tArray.each do |i|
+			tmpArray << CoordConverter.get_stringchar_of_number(i) + (coord1[1]+1).to_s
+		end
+		tmpArray = cut_first_element_of_array(tmpArray)
+		tmpArray
+	end
+	def self.get_vertical_route(coord1, coord2)
+		tArray = return_ordered_array(coord1, coord2, 1)
 		tmpArray = []
 		tArray.each do |i|
 			tmpArray << CoordConverter.get_stringchar_of_number(coord1[0])+(i+1).to_s
 		end
-
-		tmpArray = tmpArray[1,tmpArray.length-1]
+		tmpArray = cut_first_element_of_array(tmpArray)
 		tmpArray
 	end
 end
