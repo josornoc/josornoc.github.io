@@ -218,9 +218,7 @@ class Routes
 				when "diagonal"
 				routeArray = get_diagonal_route(coord1, coord2)
 				when "oneStep"
-				#routeArray = get_onestep_route(routeArray)
-				puts "oneStep"
-				p routeArray
+				routeArray = get_onestep_route(routeArray)
 				end
 			end
 		end
@@ -250,8 +248,9 @@ class Routes
 		tmpArray = ary[1,ary.length-1]
 		tmpArray
 	end
-	def self.get_onestep_route(coord1, coord2)
-
+	def self.get_onestep_route(ary)
+		puts "get_onestep_route"
+		p ary
 	end
 	def self.get_diagonal_route(coord1, coord2)
 		#NEED TO REFACTOR THIS METHOD
