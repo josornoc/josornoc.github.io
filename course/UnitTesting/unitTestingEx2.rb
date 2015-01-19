@@ -20,55 +20,68 @@ require 'imdb'
 require 'awesome_print'
 
 class SeriesMasterOfTheUniverse
-
-	def initialize
-		@movieResults = []
-	end
-
-	def compare_serie(*sAry)
-		sAry.each do |item|
-			search = Imdb::Search.new(item)
-			@movieResults << search.movies.first
-		end
-		@movieResults = @movieResults.sort{ |item| item.rating }
-		@movieResults[0].title
+	def compare_serie(*movie_titles)
+		movie_titles.map do |movie_title|
+			Imdb::Search.new(movie_title).movies.first
+		end.sort do |movie|
+			movie.rating
+		end.first.title
 	end	
-end
+	def get_best_movie_of_actor(actor_name)
 
-#s = SeriesMasterOfTheUniverse.new
-#puts s.compare_serie(["Friends", "Breaking Bad"]).title
-#p s.get_ary_by_director("David Lynch")
+		# anm = Imdb::Search.new(actor_name).movies
+		# anm = anm.sort_by{|movie|movie.rating}
+		# anm = anm.first(3)
+		# anm.each do |movie|
+		# 	puts movie.title
+		# 	puts movie.year
+		# 	puts movie.rating
+		# end
 
-
-describe SeriesMasterOfTheUniverse do
-
-	before do
-		@seriesMasterOfTheUniverse = SeriesMasterOfTheUniverse.new
-	end
-
-	describe "#compare_serie" do
-		it "should say the breaking bad is the best" do
-			sComparison = @seriesMasterOfTheUniverse.compare_serie("Friends", "Breaking Bad")
-			expect(sComparison).to eq("Breaking Bad (2008) (TV Series)")
-		end
-		it "should compare" do
-			sComparison = @seriesMasterOfTheUniverse.compare_serie("Twin Peaks", "The Sopranos", "Breaking Bad")
-			expect(sComparison).to eq("Breaking Bad (2008) (TV Series)")
-		end
-		it "should compare" do
-			sComparison = @seriesMasterOfTheUniverse.compare_serie("Twin Peaks", "The Sopranos", "Breaking Bad")
-			expect(sComparison).to eq("Breaking Bad (2008) (TV Series)")
-		end
-		it "should compare" do
-			sComparison = @seriesMasterOfTheUniverse.compare_serie("Lost", "Heroes")
-			expect(sComparison).to match(/Héroes/)
-		end
-		it "should compare" do
-			sComparison = @seriesMasterOfTheUniverse.compare_serie("Gravity", "Interstellar")
-			expect(sComparison).to match(/Interstellar/)
+		movie_actor_list = Imdb::Search.new(actor_name).movies
+		movie_actor_list = movie_actor_list.sort_by{|movie|movie.rating}
+		movie_actor_list = movie_actor_list.first(15)
+		movie_actor_list.each do |movie|
+			puts movie.title
+			puts movie.year
 		end
 	end
+
+	def by_year(year)
+		movie_actor_list = Imdb::Search.new(year).movies
+	end
 end
+
+SeriesMasterOfTheUniverse.new.get_best_movie_of_actor("Al Pacino")
+
+
+
+
+# describe SeriesMasterOfTheUniverse do
+
+# 	before do
+# 		@seriesMasterOfTheUniverse = SeriesMasterOfTheUniverse.new
+# 	end
+
+# 	describe "#compare_serie" do
+# 		it "should say the breaking bad is better than friends" do
+# 			sComparison = @seriesMasterOfTheUniverse.compare_serie("Friends", "Breaking Bad")
+# 			expect(sComparison).to eq("Breaking Bad (2008) (TV Series)")
+# 		end
+# 		it "should say the breaking bad is better than twin peaks and the sopranos" do
+# 			sComparison = @seriesMasterOfTheUniverse.compare_serie("Twin Peaks", "The Sopranos", "Breaking Bad")
+# 			expect(sComparison).to eq("Breaking Bad (2008) (TV Series)")
+# 		end
+# 		it "should say that heroes is better than lost" do
+# 			sComparison = @seriesMasterOfTheUniverse.compare_serie("Lost", "Heroes")
+# 			expect(sComparison).to match(/Héroes/)
+# 		end
+# 		it "should say that interstellar is better than gravity" do
+# 			sComparison = @seriesMasterOfTheUniverse.compare_serie("Gravity", "Interstellar")
+# 			expect(sComparison).to match(/Interstellar/)
+# 		end
+# 	end
+# end
 
 
 
