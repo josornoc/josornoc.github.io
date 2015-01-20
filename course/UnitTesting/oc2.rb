@@ -35,7 +35,15 @@ class TheBanker
   }
 
   def self.convert(amount, from_currency, to_currency)
-    TO_EURO[:to_currency]
+
+    return TO_EURO[from_currency.to_sym].to_f * amount if to_currency == "euro"
+    return (((amount / FROM_EURO[to_currency.to_sym].to_f)*10000).round)/10000.to_f if from_currency == "euro"
+    a = convert(amount, from_currency, "euro")
+    b = convert(a, "euro", to_currency)
+
+    # amount = .... unless from_currency == "euro" # convert to euro if needed
+    # amount = .... unless to_currency == "euro" # convert from euro if needed
+    # amount
   end
 end
 
@@ -43,40 +51,28 @@ end
 describe TheBanker do
   describe "#convert" do
 
-    it "Should return that 1 Euro is 0.77818 dollars " do
-      expect(TheBanker.convert(1, "euro", "usd")).to eq(0.77818)
+    it "100 Dollars == 77.818 euros " do
+      expect(TheBanker.convert(100, "usd", "euro")).to eq(77.818)
     end
 
-    it "Should return that 1.28356 usd = 1 Euro" do
-      expect(TheBanker.convert(1.28356, "usd", "euro")).to eq(1)
+    it "10 Euro == 7.7908 dollars " do
+      expect(TheBanker.convert(10, "euro", "usd")).to eq(7.7908)
     end
 
-    it "Should return that 1 Euro is 1.27341 gbp " do
-      expect(TheBanker.convert(1, "euro", "gbp")).to eq(1.27341)
+    it "Should return that 1 gbp is 0.88030 aud" do
+      expect(TheBanker.convert(1, "gbp", "aud")).to eq(0.88030)
     end
 
-    it "Should return that 0.78478 gbp is 1 euro " do
-      expect(TheBanker.convert(0.78478, "gbp", "euro")).to eq(1)
+    it "Should return that 1000 gbp more than 1000 euros and less than 1300" do
+      expect(TheBanker.convert(1000, "gbp", "euro")).to be_between(1000, 1300)
     end
 
-    it "Should return that 1 Euro is 0.70518 cad " do
-      expect(TheBanker.convert(1, "euro", "cad")).to eq(1.70518)
+    it "Should return that 100 usd estan entre 70 y 100 gbp" do
+      expect(TheBanker.convert(100, "usd", "gbp")).to be_between(70, 100)
     end
 
-    it "Should return that 1.41613 cad is 1 euro" do
-      expect(TheBanker.convert(1.41613, "cad", "euro")).to eq(1)
-    end
-
-    it "Should return that 1 Euro is 0.69052 aud " do
-      expect(TheBanker.convert(1, "euro", "aud")).to eq(0.69052)
-    end
-
-    it "Should return that 1.44651 aud is 1 euro " do
-      expect(TheBanker.convert(1.44651, "aud", "euro")).to eq(1)
-    end
-
-    it "Should return that 1 gbp is 1.13593" do
-      expect(TheBanker.convert(1, "gbp", "aud")).to eq(1.13593)
+    it "Should return that 1 usd is less than 1 gbp" do
+      expect(TheBanker.convert(1, "usd", "gbp")).to be_between(0,1)
     end
   end
 end
