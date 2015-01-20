@@ -25,22 +25,24 @@ require 'pry'
 
 class NumberMaster
 	def return_numbers(*numbers)
-
 		returnPosNumbers = numbers.select{|number|number > 0}
 		returnNegNumbers = numbers.select{|number|number < 0}
-
 		return returnPosNumbers if(returnPosNumbers.length > returnNegNumbers.length)
 		return returnNegNumbers if(returnNegNumbers.length > returnPosNumbers.length)
 		return nil if(returnNegNumbers.length == returnPosNumbers.length)
 		nil
 	end
 	def return_array(*numbers)
-		[
-			get_mode(*numbers),
-			get_reduce(*numbers),
-			get_median(*numbers),
-			numbers.length
-		]
+		if numbers.first == [] || numbers.empty?
+			return nil
+		else
+			[
+				get_mode(*numbers),
+				get_reduce(*numbers),
+				get_median(*numbers),
+				numbers.length
+			]
+		end
 	end
 	def get_reduce(*numbers)
 		numbers.reduce(:+)/numbers.length
@@ -58,12 +60,10 @@ class NumberMaster
 		numbers.max_by { |number| freq[number] }
 	end
 	def return_fibonacci(number)
-		21
+		return number if(0..1).include? number
+		return_fibonacci(number-1)+return_fibonacci(number-2)
 	end
 end
-
-#test = NumberMaster.new
-#test.return_numbers(1,2,-3,-1,-2)
 
 describe NumberMaster do
 
@@ -81,7 +81,7 @@ describe NumberMaster do
 			expect(test).to eq([-3,-1,-2])
 		end
 		it "Will return nil when positive and negative numbers have the same quantity" do
-			test = @nMaster.return_numbers(0,0,0,0,)
+			test = @nMaster.return_numbers(0,0,0,0)
 			expect(test).to eq(nil)
 		end
 	end
@@ -99,13 +99,13 @@ describe NumberMaster do
 	end
 
 	describe "return_fibonacci" do
-		it "should return the n-th Fibonacci number of 7 that is 21" do
+		it "should return the n-th Fibonacci number of 7 that is 13" do
 			test = @nMaster.return_fibonacci(7)
-			expect(test).to eq(21)
+			expect(test).to eq(13)
 		end
 		it "should return nil when argument <= 0 " do
 			test = @nMaster.return_fibonacci(0)
-			expect(test).to eq(nil)
+			expect(test).to eq(0)
 		end
 	end
 end

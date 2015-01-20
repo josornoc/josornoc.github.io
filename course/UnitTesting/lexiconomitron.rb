@@ -30,7 +30,7 @@ class Lexiconomitron
 		nWordAry = words.map do |word|
 			word.reverse.gsub!(/[Tt]/, '')
 		end
-		nWordAry = [nWordAry[0],nWordAry[nWordAry.length - 1]]
+		nWordAry = [nWordAry.first, nWordAry.last]
 		nWordAry
 	end
 
@@ -45,8 +45,7 @@ class Lexiconomitron
 	end
 
 	def all_in_line(*words)
-		words = words.sort_by{|word|word.length}.reverse.join("$")
-		words
+		words.sort_by{|word|word.length}.reverse.join("$")
 	end
 
 	def supercounter(*words)
