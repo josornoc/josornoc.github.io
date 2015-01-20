@@ -26,25 +26,36 @@ require 'pry'
 class NumberMaster
 	def return_numbers(*numbers)
 
-		returnPosNumbers = []
-		returnNegNumbers = []
-
-		numbers.each do |number|
-			if number > 0
-				returnPosNumbers << number
-			elsif number < 0
-				returnNegNumbers << number
-			end
-		end
+		returnPosNumbers = numbers.select{|number|number > 0}
+		returnNegNumbers = numbers.select{|number|number < 0}
 
 		return returnPosNumbers if(returnPosNumbers.length > returnNegNumbers.length)
 		return returnNegNumbers if(returnNegNumbers.length > returnPosNumbers.length)
 		return nil if(returnNegNumbers.length == returnPosNumbers.length)
-
 		nil
 	end
 	def return_array(*numbers)
-		[12,7.5,7,4]
+		[
+			get_mode(*numbers),
+			get_reduce(*numbers),
+			get_median(*numbers),
+			numbers.length
+		]
+	end
+	def get_reduce(*numbers)
+		numbers.reduce(:+)/numbers.length
+	end
+	def get_median(*numbers)
+		if(numbers.length.even?)
+			fNumber = ((numbers[(numbers.length/2)-1]).to_f + (numbers[numbers.length/2])).to_f
+			fNumber =  fNumber/2
+		else
+			return numbers[numbers.length/2]
+		end
+	end
+	def get_mode(*numbers)
+		freq = numbers.inject(Hash.new(0)) { |key,value| key[value] += 1; key }
+		numbers.max_by { |number| freq[number] }
 	end
 	def return_fibonacci(number)
 		21
@@ -78,7 +89,7 @@ describe NumberMaster do
 	describe "return_array" do
 		it "Will return array with mode, median, mean, and length of array --- return mode" do
 			test = @nMaster.return_array(1,3,12,12)
-			expect(test).to eq([12,7.5,7,4])
+			expect(test).to eq([12,7,7.5,4])
 		end
 
 		it "Will return nil if the array is empty" do
