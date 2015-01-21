@@ -32,7 +32,13 @@ class SongList
 		@songList << {:name => name, :artist => artist}
 	end
 	def to_s
-		@songList.to_s
+		a = ""
+		a << "<ul>"
+		@songList.each do |song|
+			a << "<li><b>" + "Name: </b>" + song[:name] + " <b>Artist: </b>" + song[:artist] + "</li>"
+		end
+		a << "</ul>"
+		a
 	end
 	def song_list_length?
 		@songList.length
