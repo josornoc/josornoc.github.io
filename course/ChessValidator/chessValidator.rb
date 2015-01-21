@@ -235,7 +235,7 @@ class Routes
 			when "diagonal"
 				boolResRType << eval_if_equal((coord1[0] - coord2[0]).abs,(coord1[1] - coord2[1]).abs)
 			when "oneStep"
-				puts "get_boolean_hash_of_route_types oneStep - recortar array..."
+				boolResRType << if(rTypes.index("oneStep"))
 			end
 		end
 		rHash = rTypes.zip(boolResRType).to_h
