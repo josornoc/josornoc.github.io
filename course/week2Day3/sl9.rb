@@ -30,7 +30,6 @@ class SongList
 			elsif song[:artist].include?(term)
 				@searchResults << song
 			end
-			#@searchResults << term
 		end
 	end
 	def song_list_length?
