@@ -62,7 +62,7 @@ end
 # Also, we will have a couple more features:
 # * We will have a dynamic route, like "/artists/:artist" that, for the "artist" parameter, prints all the songs that we have from him/her
 # in our songs list.
-get '/artist' do
+get '/artist/:artist' do
 	@songs = sl.song_list?
 	@artist = params[:artist]
 	erb :artist
