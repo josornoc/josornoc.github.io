@@ -11,7 +11,11 @@
 		<input type="text" name="term" value="Search Term..."/>
 		<input type="submit"/>
 	</form>
-	<h2>Search Results</h2>
+	<% if @sResults.any? == false %>
+		<h2>No results</h2>
+	<% else %>
+		<h2>Search Results</h2>
+	<% end %>
 	<ul>
       <% @sResults.each do |i| %>
         <li><b>Song Name: </b> <%= i[:name] %> /<b>Song Artist: </b><%= i[:artist] %></li>

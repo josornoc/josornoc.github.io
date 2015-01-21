@@ -25,9 +25,7 @@ class SongList
 	end
 	def get_search_results(term)
 		@songList.each do |song|
-			if(song[:name].include?(term))
-				@searchResults << song
-			elsif song[:artist].include?(term)
+			if(song[:name].include?(term) || song[:artist].include?(term))
 				@searchResults << song
 			end
 		end
@@ -40,6 +38,9 @@ class SongList
 	end
 	def search_results?
 		@searchResults
+	end
+	def reset_search_results
+		@searchResults = []
 	end
 end
 
@@ -69,8 +70,12 @@ end
 
 # * We will have a "/search" route that, with a "term" parameter, prints all the artists and the songs which match the "term" parameter.
 get '/search' do
-	#@sResults = sl.search_results? if sl.search_results?.nil? == false
-	@sResults = sl.search_results?
+	if @sResults.nil? != false || @sResults.empty? == false
+		@sResults = sl.search_results?
+	else
+		@sResults = "No results"
+	end
+	sl.reset_search_results
 	erb :search
 end
 
