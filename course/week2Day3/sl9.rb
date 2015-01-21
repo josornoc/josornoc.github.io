@@ -7,11 +7,6 @@
 # * Instead of saving the songs in an array, we will create a SongList class that has one “add_song” method, which will take an author and a
 # name as parameters, and add the information to the song list.
 
-# Also, we will have a couple more features:
-# * We will have a dynamic route, like "/artists/:artist" that, for the "artist" parameter, prints all the songs that we have from him/her
-# in our songs list.
-# * We will have a "/search" route that, with a "term" parameter, prints all the artists and the songs which match the "term" parameter.
-
 # Enjoy!
 
 require 'sinatra'
@@ -23,15 +18,29 @@ set :bind, '0.0.0.0'
 class SongList
 	def initialize
 		@songList = []
+		@searchResults = []
 	end
 	def add_song(name, artist)
 		@songList << {:name => name, :artist => artist}
+	end
+	def get_search_results(term)
+		@songList.each do |song|
+			if(song[:name].include?(term))
+				@searchResults << song
+			elsif song[:artist].include?(term)
+				@searchResults << song
+			end
+			#@searchResults << term
+		end
 	end
 	def song_list_length?
 		@songList.length
 	end
 	def song_list?
 		@songList
+	end
+	def search_results?
+		@searchResults
 	end
 end
 
@@ -46,6 +55,27 @@ get '/' do
   erb :form
 end
 
+get '/enough' do
+  erb :enough
+end
+
+# Also, we will have a couple more features:
+# * We will have a dynamic route, like "/artists/:artist" that, for the "artist" parameter, prints all the songs that we have from him/her
+# in our songs list.
+get '/artist' do
+	@songs = sl.song_list?
+	@artist = params[:artist]
+	erb :artist
+end
+
+# * We will have a "/search" route that, with a "term" parameter, prints all the artists and the songs which match the "term" parameter.
+get '/search' do
+	#@sResults = sl.search_results? if sl.search_results?.nil? == false
+	@sResults = sl.search_results?
+	erb :search
+end
+
+######### Post methods
 post '/save_song' do
   unless sl.song_list_length? >= 9 
   	sl.add_song(params[:name], params[:artist])
@@ -54,15 +84,17 @@ post '/save_song' do
   redirect('/enough')
 end
 
-get '/enough' do
-  erb :enough
+post '/search_term' do
+  unless sl.song_list_length? == 0
+  	sl.get_search_results(params[:term])
+  end
+  redirect('/search')
 end
 
-get '/artist' do
-	@songs = sl.song_list?
-	@artist = params[:artist]
-	erb :artist
-end
+
+
+
+
 
 
 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Playlist Maker Search</h1>
+	<h5>By the way did you know that the time now is: <%=Time.now%></h5>
+	<h2>Searh by name or artist</h2><br>
+	<form action="/search_term" method="post">
+		<input type="text" name="term" value="Search Term..."/>
+		<input type="submit"/>
+	</form>
+	<h2>Search Results</h2>
+	<ul>
+      <% @sResults.each do |i| %>
+        <li><b>Song Name: </b> <%= i[:name] %> /<b>Song Artist: </b><%= i[:artist] %></li>
+      <% end %>
+    </ul>
+</body>
+</html>
