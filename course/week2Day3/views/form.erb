@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Simple Playlist Maker:</h1>
+	<h2>Number of visits: <%=@visits%></h2><br><br>
+	<form action="/save_song" method="post">
+		<input type="text" name="name" value="Song name"/>
+		<input type="text" name="artist" value="Artist name"/>
+		<input type="submit"/>
+	</form><br><br>
+	<ul>
+      <% @songs.each do |i| %>
+        <li><b>Song Name: </b> <%= i[:name] %> /<b>Song Artist: </b><%= i[:artist] %></li>
+      <% end %>
+    </ul>
+</body>
+</html>
