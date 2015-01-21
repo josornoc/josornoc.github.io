@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Songs by Artist: <%=@artist%></h1><br><br>
+	<ul>
+      <% @songs.each do |i| %>
+      	<% if i[:artist] == @artist %>
+        <li><b>Song Name: </b> <%= i[:name] %> /<b>Song Artist: </b><%= i[:artist] %></li>
+        <% end %>
+      <% end %>
+    </ul>
+</body>
+</html>

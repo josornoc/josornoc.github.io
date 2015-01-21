@@ -27,15 +27,6 @@ class SongList
 	def add_song(name, artist)
 		@songList << {:name => name, :artist => artist}
 	end
-	def to_s
-		a = ""
-		a << "<ul>"
-		@songList.each do |song|
-			a << "<li><b>" + "Name: </b>/" + song[:name] + " <b>Artist: </b>" + song[:artist] + "</li>"
-		end
-		a << "</ul>"
-		a
-	end
 	def song_list_length?
 		@songList.length
 	end
@@ -56,7 +47,7 @@ get '/' do
 end
 
 post '/save_song' do
-  unless sl.song_list_length? > 9 
+  unless sl.song_list_length? >= 9 
   	sl.add_song(params[:name], params[:artist])
   	redirect('/')
   end
@@ -65,6 +56,12 @@ end
 
 get '/enough' do
   erb :enough
+end
+
+get '/artist' do
+	@songs = sl.song_list?
+	@artist = params[:artist]
+	erb :artist
 end
 
 
