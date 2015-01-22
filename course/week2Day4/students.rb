@@ -22,23 +22,49 @@ class Student < ActiveRecord::Base
   # and first_programming_experience
 
   AGE_MINIMUM = 16
+  AGE_MAXIMUM = 34
 
   validates_presence_of :name, :surnames
   validates_format_of :website, with: /\Ahttp:/
   validates_numericality_of :number_of_dogs, greater_than: 0
   validate :proper_age
+  validate :name_xavier
+
+  def complete_name
+    name.to_s + " " + surnames.to_s
+  end
 
   private
+  def name_xavier
+    unless name != "Xavier"
+      errors.add(:name, 'the student has an awful name')
+    end
+    unless name != "Nick"
+      errors.add(:name, "We only want 1 Nick")
+    end
+  end
+
   def proper_age
     unless birthday < AGE_MINIMUM.years.ago
       errors.add(:birthday, 'is too young')
+    end
+    unless birthday > AGE_MAXIMUM.years.ago && number_of_dogs
+      errors.add(:birthday, 'student is too old and its weird (too much dogs)')
     end
   end
 end
 
 
-describe Student do 
-  it "method get_complete_name should return Name + SurName: "
-    test = Student
+describe Student do
+  before do
+    @newStudent = Student.new
+  end
+  describe ":name" do
+    it "Should be invalid if missing" do
+      (@newStudent.isValid?).to be_truthy
+    end
   end
 end
+
+
+
