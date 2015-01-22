@@ -24,11 +24,7 @@ class SongList
 		@songList << {:name => name, :artist => artist}
 	end
 	def get_search_results(term)
-		@songList.each do |song|
-			if(song[:name].include?(term) || song[:artist].include?(term))
-				@searchResults << song
-			end
-		end
+		@searchResults = @songList.select{ |song| song[:name].include?(term) || song[:artist].include?(term) }
 	end
 	def song_list_length?
 		@songList.length
