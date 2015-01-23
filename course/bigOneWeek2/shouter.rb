@@ -35,12 +35,12 @@ class Shout < ActiveRecord::Base
   #validates :registration_number, length: { is: 6 }
 	#message at least 200 length
 	#created_at, which is the moment when the SHOUT is saved (this behaviour must be implemented within the class, not outside).
+	#validates_numericality_of , greater_than: -1
 
 	#validation
 	validates :message, length: { maximum: 200 }
-	validates_presence_of :created_at, :counter
-	#validates_numericality_of , greater_than: -1
-
+	validates_presence_of :created_at, :likes
+	
 	#relationships
 	belongs_to :user
 end
@@ -55,7 +55,7 @@ user.save
 get ('/') do
 	# - We will have a main page where we can SHOUT. There will be a form in the top that takes care of that with a wide text field for the
 	#   message, and an input button in order to SHOUT.
-	@sList = Shout.all
+	@sList = Shout.all.reverse
 	erb :index
 end
 
@@ -64,19 +64,20 @@ get ('/best') do
 	erb :best
 end
 
+post ('/new_shout') do
+	#save new shout after validation
+	d = DateTime.now
+	shout = Shout.new(created_at:d,message:params[:message],likes:0)
+	user.shouts << shout
+	shout.save
+	user.save
+	redirect('/')
+end
+
 get ('/:handle') do
 	#shows all the SHOUTS from the user attached to that specific handle.
 	#erb :handle?
 end
-
-post ('/new_shout') do
-	#save new shout after validation
-	d = DateTime.now
-	shout = Shout.new(created_at:d,message:params[:message],counter:0)
-	shout.save
-	redirect('/')
-end
-
 
 
 

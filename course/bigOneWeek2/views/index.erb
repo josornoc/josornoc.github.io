@@ -14,7 +14,10 @@
 	<h1>List of shouts:</h1>
 	<% @sList.each do |shout| %>
 	<ul>
-		<p><%= shout[:message]%></p>
+		<li><%="Created at: " + shout[:created_at].to_s%></li>
+		<li><%="Created by: " + shout[:user].to_s%></li>
+		<li><%="Message: " + shout[:message].to_s%></li>
+		<li><%="Likes: " + shout[:likes].to_s%></li>
 	</ul>
 	<% end %>
 </body>
