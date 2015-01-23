@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Shouter!</h1>
+	<%if @user.nil? == false %>
+	<h2 style="display:inline">Hello <%=@user.name%></h2>
+	<form action="/log_out" method="POST"><input type="hidden"></input><button>Log out</button></form>
+	<br><br>
+	<%end%>
+	<form action="/log_in" method="POST">
+		<input type="text" name="handle" placeholder="User handle?"/>
+		<input type="password" name="password" placeholder="User Password?"/>
+		<input type="submit"/>
+	</form><br>
+	<h4><a href="/best">Sign In</a></h4>
+	<h2><a href="/best">See best shouts</a></h2>
+	<h1>List of shouts:</h1>
+	<% @sList.each do |shout| %>
+	<ul>
+		<li><%="Created at: " + shout[:created_at].to_s%></li>
+		<li><%="Created by: " + shout.user.handle.to_s%></li>
+		<li><%="Message: " + shout[:message].to_s%></li>
+		<li><%="Likes: " + shout[:likes].to_s%></li>
+		<form action="/add_like" method="POST">
+			<input type='hidden' name='shout_id' value=<%=shout[:id]%>></input>			
+			<li><button>I like this shout</button></li>
+		</form>
+	</ul>
+	<% end %>
+</body>
+</html>

@@ -36,15 +36,13 @@ end
 
 #dynamic urls
 get ('/') do
-	# - We will have a main page where we can SHOUT. There will be a form in the top that takes care of that with a wide text field for the
-	#   message, and an input button in order to SHOUT.
+	@user = User.find_by_id(session[:current_user])
 	@sList = Shout.all.reverse
 	@uList = User.all
-	erb :index
+	erb :index_login
 end
 
 get ('/best') do
-	#which will show the SHOUTS sorted by the numberof likes.
 	@sList = Shout.all.sort_by{|shout|shout.likes}.reverse
 	erb :best
 end
@@ -58,10 +56,6 @@ post ('/new_shout') do
 	end
 end
 
-get ('/error') do
-	puts "User is nil"
-end
-
 get ('/:handle') do
 	#shows all the SHOUTS from the user attached to that specific handle.
 	if user = User.find_by_handle(params[:handle])
@@ -70,6 +64,10 @@ get ('/:handle') do
 	else
 		redirect('/error')
 	end
+end
+
+get ('/error') do
+	puts "User is nil"
 end
 
 post ('/new_user') do
@@ -85,6 +83,19 @@ post ('/add_like') do
 	shout = Shout.find_by_id(params[:shout_id])
 	shout.likes += 1
 	shout.save
+	redirect('/')
+end
+
+post ('/log_in') do
+	user = User.find_by_password(params[:password])
+	if(user.handle == params[:handle])
+		session[:current_user] = user.id
+		redirect('/'+user.handle)
+	end
+end
+
+post ('/log_out') do
+	session[:current_user] = 0
 	redirect('/')
 end
 
