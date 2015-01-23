@@ -43,3 +43,25 @@
 # In order to make development easier, create some users using PRY, because we won’t have any UI to create users via the website.
 
 # Note: you will find a skeleton .rb file and an empty SQLite database for all this in Slack!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

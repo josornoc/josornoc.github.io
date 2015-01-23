@@ -15,7 +15,13 @@
 		<input type="password" name="password" placeholder="User Password?"/>
 		<input type="submit"/>
 	</form><br>
+	<%if @errors.nil? == false %>
+	<h4 style="color:red"><%=@errors%></h4>
+	<br><br>
+	<%end%>
+	<%if @user.nil? %>
 	<h4><a href="/best">Sign In</a></h4>
+	<%end%>
 	<h2><a href="/best">See best shouts</a></h2>
 	<h1>List of shouts:</h1>
 	<% @sList.each do |shout| %>
