@@ -8,15 +8,15 @@
 	<h2>SignUp Here!<h2>
 	<h3>Registered users</h3>
 	<form action="/singup" method="post">
-		<input type="text" name="name" value="Name"/>
-		<input type="text" name="email" value="Email"/>
+		<input type="text" name="password" placeholder="User indentification (password)"/>
+		<input type="text" name="shot" placeholder="Shout!"/>
 		<input type="submit"/>
-	</form><br><br>
+	</form><br>
+	<h1>List of shouts:</h1>
+	<% @sList.each do |shout| %>
 	<ul>
-      <% @userCollection.each do |user| %>
-        <li><b>User Name: </b> <%= user[:name] %> / <b>User Email: </b><%= user[:email] %></li>
-      <% end %>
-    </ul>
-	<a href="/cat" target="self">See /Cats page... not too much imagination regarding the images.</a>
+		<p><%= shout[:message]%></p>
+	</ul>
+	<% end %>
 </body>
 </html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Shouter!</h1>
+	<h3>Scream in the form below: </h3>
+	<form action="/new_shout" method="post">
+		<input type="text" name="password" placeholder="Password?"/>
+		<input type="text" name="message" placeholder="Shout!"/>
+		<input type="submit"/>
+	</form><br>
+	<h1>List of shouts:</h1>
+	<% @sList.each do |shout| %>
+	<ul>
+		<p><%= shout[:message]%></p>
+	</ul>
+	<% end %>
+</body>
+</html>
