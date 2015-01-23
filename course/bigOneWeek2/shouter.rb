@@ -57,8 +57,8 @@ get ('/:handle') do
 	end
 end
 
-get ('/error') do
-	puts "User is nil"
+get ('/signup') do
+	erb :signup
 end
 
 post ('/new_shout') do
