@@ -5,19 +5,38 @@
 </head>
 <body>
 	<h1>Shouter!</h1>
+	<h4><a href="/best">Check best shouts</a></h4>
+	<h3>Add new user: </h3>
+	<form action="/new_user" method="post">
+		<input type="text" name="name" placeholder="User name?"/>
+		<input type="text" name="handle" placeholder="User handle?"/>
+		<input type="submit"/>
+	</form><br>
+	<h1>List of Users:</h1>
+	<% @uList.each do |user| %>
+	<ul>
+		<li><%="User Name: " + user[:name].to_s%></li>
+		<li>User Handle:<a href=/<%=user[:handle].to_s%>><%=user[:handle].to_s%></a></li>
+		<li><%="User Password: " + user[:password].to_s%></li>
+	</ul>
+	<% end %><br>
 	<h3>Scream in the form below: </h3>
-	<form action="/new_shout" method="post">
-		<input type="text" name="password" placeholder="Password?"/>
-		<input type="text" name="message" placeholder="Shout!"/>
+	<form action="/new_shout" method="POST">
+		<input type="text" name="handle" placeholder="User Handle?"/>
+		<input type="text" name="message" placeholder="Scream!"/>
 		<input type="submit"/>
 	</form><br>
 	<h1>List of shouts:</h1>
 	<% @sList.each do |shout| %>
 	<ul>
 		<li><%="Created at: " + shout[:created_at].to_s%></li>
-		<li><%="Created by: " + shout[:user].to_s%></li>
+		<li><%="Created by: " + shout.user.handle.to_s%></li>
 		<li><%="Message: " + shout[:message].to_s%></li>
 		<li><%="Likes: " + shout[:likes].to_s%></li>
+		<form action="/add_like" method="POST">
+			<input type='hidden' name='shout_id' value=<%=shout[:id]%>></input>			
+			<li><button>I like this shout</button></li>
+		</form>
 	</ul>
 	<% end %>
 </body>

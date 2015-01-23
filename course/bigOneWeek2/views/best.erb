@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Best Shouts!</h1>
+	<% @sList.each do |shout| %>
+	<ul>
+		<li><%="Shout created at: " + shout.created_at.to_s%></li>
+		<li><%="Shout created by: " + shout.user.handle.to_s%></li>
+		<li><%="Shout message: " + shout.message.to_s%></li>
+		<li><%="Shout likes: " + shout.likes.to_s%></li>
+	</ul>
+	<% end %><br>
+	<h4><a href="/">Go back home</a></h4>
+</body>
+</html>

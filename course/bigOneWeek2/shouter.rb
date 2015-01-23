@@ -12,31 +12,20 @@ ActiveRecord::Base.establish_connection(
   database: 'shouter.sqlite'
 )
 
-class Shouter
-	#god class needed?
-end
-
 class User < ActiveRecord::Base
-	#handle must me implemented to be unique, without spaces
 	#password (20 characters long and unique).
-
 	#validation
   validates_presence_of :name, :handle, :password
 
   #relationships
   has_many :shouts
+
+  private
+  #specific validations
+	#handle must me implemented to be unique, without spaces
 end
 
 class Shout < ActiveRecord::Base
-
-	#validates :name, length: { minimum: 2 }
-  #validates :bio, length: { maximum: 500 }
-  #validates :password, length: { in: 6..20 }
-  #validates :registration_number, length: { is: 6 }
-	#message at least 200 length
-	#created_at, which is the moment when the SHOUT is saved (this behaviour must be implemented within the class, not outside).
-	#validates_numericality_of , greater_than: -1
-
 	#validation
 	validates :message, length: { maximum: 200 }
 	validates_presence_of :created_at, :likes
@@ -45,39 +34,70 @@ class Shout < ActiveRecord::Base
 	belongs_to :user
 end
 
-#Driver code...
-user = User.new
-user.name = "Jose Ignacio"
-user.password = "@josornoc"
-user.save
-
 #dynamic urls
 get ('/') do
 	# - We will have a main page where we can SHOUT. There will be a form in the top that takes care of that with a wide text field for the
 	#   message, and an input button in order to SHOUT.
 	@sList = Shout.all.reverse
+	@uList = User.all
 	erb :index
 end
 
 get ('/best') do
 	#which will show the SHOUTS sorted by the numberof likes.
+	@sList = Shout.all.sort_by{|shout|shout.likes}.reverse
 	erb :best
 end
 
 post ('/new_shout') do
-	#save new shout after validation
-	d = DateTime.now
-	shout = Shout.new(created_at:d,message:params[:message],likes:0)
-	user.shouts << shout
-	shout.save
-	user.save
-	redirect('/')
+	if user = User.find_by_handle(params[:handle])
+		user.shouts.create(created_at:DateTime.now,message:params[:message],likes:0)
+		redirect('/')
+	else
+		redirect('/error')
+	end
+end
+
+get ('/error') do
+	puts "User is nil"
 end
 
 get ('/:handle') do
 	#shows all the SHOUTS from the user attached to that specific handle.
-	#erb :handle?
+	if user = User.find_by_handle(params[:handle])
+		@sList = user.shouts.sort_by{|shout|shout.created_at}.reverse
+		erb :handle
+	else
+		redirect('/error')
+	end
 end
+
+post ('/new_user') do
+	#save new shout after validation
+	newPass = (0...20).map { ('a'..'z').to_a[rand(26)] }.join
+	newUser = User.new(name:params[:name],handle:params[:handle],password:newPass)
+	newUser.save
+	redirect('/')
+end
+
+post ('/add_like') do
+	#save new shout after validation
+	shout = Shout.find_by_id(params[:shout_id])
+	shout.likes += 1
+	shout.save
+	redirect('/')
+end
+
+
+
+
+
+
+
+
+
+
+
 
 
 
