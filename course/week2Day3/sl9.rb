@@ -23,7 +23,7 @@ class SongList
 	def add_song(name, artist)
 		@songList << {:name => name, :artist => artist}
 	end
-	def get_search_results(term)
+	def get_search_results(term)l
 		@searchResults = @songList.select{ |song| song[:name].include?(term) || song[:artist].include?(term) }
 	end
 	def song_list_length?

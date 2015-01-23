@@ -57,14 +57,29 @@ end
 
 describe Student do
   before do
-    @newStudent = Student.new
+    @student = Student.new
+    @student.name = 'Joe'
+    @student.surnames = 'Ironhack'
+    @student.birthday = Date.new(1987,12,5)
+    @student.number_of_dogs = 1
+    @student.website = 'http://ironhack.com'
+    #instance.errors.full_messages`
   end
-  describe ":name" do
-    it "Should be invalid if missing" do
-      (@newStudent.isValid?).to be_truthy
+
+  it "should be valid with correct data" do
+    expect(@student.valid?).to be_truthy
+  end
+
+  describe :name do
+    it "should be invalid if it's missing" do
+      @student.name = nil
+      expect(@student.valid?).to be_falsy
     end
   end
-end
 
+  describe :surnames do
+    # your turn!
+  end
+end
 
 

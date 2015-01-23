@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IronHack Directory</title>
+</head>
+<body>
+	<h1>Sign new student</h1>
+	<form action="/signUp" method="post">
+		<input type="text" name="name" value="Name"/>
+		<input type="text" name="surnames" value="Surnames"/>
+		<input type="text" name="website" value="Website"/>
+		<input type="text" name="birthday" value="yyyy/mm/dd"/>
+		<input type="text" name="number_of_dogs" value="Dogs?"/>
+		<input type="submit"/>
+	</form><br>
+	<h1>IronHack Directory</h1>
+	<% @sList.each do |student| %>
+	<ul>
+		<form>
+			<p>Id: <%=student[:id]%></h2>
+			<h2>Name: <%= student[:name] + " " + student[:surnames]%></h2>
+			<p>Birthday: <%= student[:birthday]%></p>
+			<p>Website: <a href=<%= student[:website]%>><%= student[:website]%></a></p>
+			<p>Number of dogs: <%= student[:number_of_dogs]%></p>
+			<h6><a href="/erase_student/"<%=student[:id]%>>Erase him</a>
+		</form>
+	</ul>
+	<br><br>
+	<% end %>
+</body>	
+</html>
