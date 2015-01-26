@@ -1,0 +1,23 @@
+/* *{
+ outline: red 1px solid;
+}*/
+
+article p{
+	text-align: justify;
+	margin: 0 0 10px 0;
+}
+
+article img{
+	float:right;
+	padding: 0 0 0 20px;
+}
+
+.title{
+	background: #CCC
+}
+
+blockquote{
+	margin:10px 0 10px 0;
+	font-style: italic;
+	color: #AAA;
+}
