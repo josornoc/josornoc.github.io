@@ -1,7 +1,3 @@
-<!-- 1. Navigation fixed on the top -->
-
-<!-- 2. Big image with the attributes of the account (separated, image should be in the background) -->
-
 <!-- 3. 3 column design -->
 
 <!-- 4. Left column with profile info / Followers / Pics & Videos -->
@@ -17,7 +13,6 @@
 	<!-- Trends -->
 	<!-- 2 asides -->
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,12 +27,11 @@
 	<link rel="stylesheet" href="css/ihProfile.css">	
 </head>
 <body>
-<nav class="navbar navbar-default ">
 
+<!-- 1. Navigation fixed on the top -->
+<nav class="navbar navbar-default">
   <div class="container">
-    
     <div class="navbar-header">
-      
       <!-- Needed for responsive navigation, more on that later -->
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
@@ -45,25 +39,30 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      
-      <a class="navbar-brand" href="#">Brand</a>
+      <!-- <a class="navbar-brand" href="#">Brand</a> -->
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Notifications</a></li>
+        <li><a href="#">Messages</a></li>
+        <li><a href="#">Discover</a></li>
       </ul>
-      
-      <form class="navbar-form navbar-left">
+     
+      <form class="navbar-form navbar-right">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
+          <img src="#" alt="#">
+          <button type="button" class="btn btn-default">Tweet</button>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
       </form>
+
+      <!--
       <p class="navbar-text navbar-right">Signed in as <strong>Ironhacker</strong></p>
+      -->
+
     </div>
   </div>
 </nav>
@@ -74,16 +73,13 @@ Bringing the .container inside the .jumbotron instead of outside will make it us
 <div class="col-sm-12">
   <div class="row">
     <div class="col-sm-12">
+    	<!-- 2. Big image with the attributes of the account (separated, image should be in the background) -->
       <div class="jumbotron">
-        <div class="container">
-	        <h1>Hi dis ma website!</h1>
-	        <p>I maek preti stufs.</p>
-	        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-       </div>
+      <img src="#" alt="">
       </div>
     </div>
   </div>
-  <nav class="navbar navbar-default ">
+  <nav class="navbar navbar-default">
 	  <div class="container">
 	    <div class="navbar-header">
 	      <!-- Needed for responsive navigation, more on that later -->
@@ -211,6 +207,49 @@ Bringing the .container inside the .jumbotron instead of outside will make it us
 			<div class="row">
 				Who to follow / Refresh / View all	
 			</div>
+
+			<!-- list of media for who to follow -->
+			<div class="media">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object" src=http://img.mortensen.es/84/e4e6e6/aaa.jpg"">
+          </a>
+        </div>
+        <div class="media-body">
+          <h5 class="media-heading">@YourMother</h5>
+          <h6 class="media-heading">Your Mother</h6>
+          <button type="button" class="btn btn-default">Follow</button>
+        </div>
+      </div>
+
+      <!-- list of media for who to follow -->
+			<div class="media">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object" src=http://img.mortensen.es/84/e4e6e6/aaa.jpg"">
+          </a>
+        </div>
+        <div class="media-body">
+          <h5 class="media-heading">@YourMother</h5>
+          <h6 class="media-heading">Your Mother</h6>
+          <button type="button" class="btn btn-default">Follow</button>
+        </div>
+      </div>
+
+      <!-- list of media for who to follow -->
+			<div class="media">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object" src=http://img.mortensen.es/84/e4e6e6/aaa.jpg"">
+          </a>
+        </div>
+        <div class="media-body">
+          <h5 class="media-heading">@YourMother</h5>
+          <h6 class="media-heading">Your Mother</h6>
+          <button type="button" class="btn btn-default">Follow</button>
+        </div>
+      </div>
+
 			<div class="row">
 				Popular accounts / Find friends	
 			</div>
