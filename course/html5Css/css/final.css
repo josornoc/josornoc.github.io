@@ -1,0 +1,19 @@
+.module__box__header *{
+	display: inline-block;
+}
+
+.module__box__header img:first-child{
+	width: 3em;
+}
+
+.panel-title *{
+	display:inline-block;
+}
+
+.panel-title img:first-child{
+	width: 3em;
+}
+
+.panel-footer img:first-child{
+	width: 3em;
+}
