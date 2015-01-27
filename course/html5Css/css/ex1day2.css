@@ -1,0 +1,11 @@
+.miClase{
+	width: 500px;
+	height:500px;
+	border: 10px solid rgba(37,94,160,8);
+	margin: 25px;
+	padding: 10px;
+	color: white;
+	background: -webkit-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+	background: -o-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+	background: linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+}	
