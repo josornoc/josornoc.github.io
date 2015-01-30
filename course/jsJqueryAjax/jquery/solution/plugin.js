@@ -20,18 +20,18 @@ $(document).ready(function () {
 
 
 // Create a plugin that remove all the spaces
-//(function ($) {
-//    $.fn.removeSpaces = function () {
-//        return this.each(function () {
-//            var e = $(this);
-//            var textWithoutVowels = e.text().replace(/ /g, "");
-//            e.text(textWithoutVowels);
-//        });
-//    };
-//}(jQuery));
+(function ($) {
+   $.fn.removeSpaces = function () {
+       return this.each(function () {
+           var e = $(this);
+           var textWithoutVowels = e.text().replace(/ /g, "");
+           e.text(textWithoutVowels);
+       });
+   };
+}(jQuery));
 
 
 // And apply it to the p elements
 $(document).ready(function () {
-//$("p").removeSpaces();
+	$("p").removeSpaces();
 });
