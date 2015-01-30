@@ -44,6 +44,7 @@ class TheBanker
     # amount = .... unless from_currency == "euro" # convert to euro if needed
     # amount = .... unless to_currency == "euro" # convert from euro if needed
     # amount
+    
   end
 end
 
