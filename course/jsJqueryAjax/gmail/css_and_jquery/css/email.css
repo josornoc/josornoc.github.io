@@ -2,12 +2,41 @@ ul{
 	list-style-type:none;
 }
 
+ul#emails{
+	padding: 0;
+}
+
+.side-left{
+	margin:12px 0 0 0;
+}
+
 #emails div{
 	display: inline;
 }
 
-#emails li{
-	
+#blank-email{
+	display:none;
+	background-color: silver;
+	position: fixed; 
+	bottom: 0px; 
+	right: 0px;
+	border-radius: 4px;
+	height: 30em;
+}
+
+#text-area-nmail{
+	width: 100%;
+	border-radius: 4px;
+	height: 18em;
+	border: none;
+	margin: 1px 0 4px 0;
+}
+
+#emails{
+}
+
+#emailContent{
+	display: none;
 }
 
 .emailItem{

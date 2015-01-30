@@ -14,6 +14,7 @@
      -->
 
     <nav class="navbar navbar-default">
+
       <div class="container-fluid">
 
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -55,13 +56,21 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav><!-- /. -->
+
+
+    <!-- 2da Barra -->
+    <div class="col-sm-offset-2 col-sm-10 btn-group" role="group" aria-label="...">
+      <button type="butt  on" id="newEmail" class="btn btn-default">New Message</button>
+      <button type="button" id="updateEmails" class="btn btn-default">Update Emails</button>
+    </div>
+
   
     <!-- DROP DOWNS / RELOAD BUTTONS -->
-    <div class="btn-group" role="group" aria-label="...">
-      <button type="button" class="btn btn-default">Select</button>
-      <button type="button" id="updateEmails" class="btn btn-default">Update Emails</button>
-      <button type="button" class="btn btn-default">More</button>
-    </div>
+    <!-- 
+      <div class="btn-group" role="group" aria-label="...">
+        <button type="button" id="updateEmails" class="btn btn-default">Update Emails</button>
+      </div>
+    -->
 
     <!-- COLUMN LEFT / UL LIST OF EMAILS -->
     <div id="email">
@@ -71,34 +80,43 @@
         <div id="user-profile"></div>
       </div>
 
-      <div class="col-md-2">
+      <div class="col-md-2 side-left">
         <div id="sidebar">
-          <div id="compose">
-              <button type="button" class="btn btn-default">New Message</button>
+          <div class="list-group">
+            <a href="#" class="list-group-item active">
+              <span class="badge">14</span>
+              Inbox
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">1</span>
+              Starred
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">2</span>
+              Sent mail
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">4</span>
+              Drafts
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">11</span>
+              Spam
+            </a>
           </div>
-          <div id="labels">
-            <ul id="main-labels">
-              <li>Inbox</li>
-              <li>Starred</li>
-              <li>Sent mail</li>
-              <li>Drafts</li>
-              <li>Spam</li>
-            </ul>
-            <ul id="personal-labels">
-              <li>Friends</li>
-              <li>Professional</li>
-              <li>Events</li>
-              <li>Things</li>
-            </ul>
+          <!-- --><!-- --><!-- -->
+          <div class="list-group">
+            <a href="#" class="list-group-item">Friends</a>
+            <a href="#" class="list-group-item">Professional</a>
+            <a href="#" class="list-group-item">Events</a>
+            <a href="#" class="list-group-item">Things</a>
           </div>
-          <div id="chat">
-            <div id="chat-profile"></div>
-            <ul id="recent-conversations">
-              <li>Charly Crews</li>
-              <li>Jack Gallagher</li>
-              <li>Richard Castle</li>
-              <li>Sheldon Cooper</li>
-            </ul>
+          <!-- --><!-- --><!-- -->
+          <div class="list-group">
+            <a href="#" class="list-group-item">Charly Crews</a>
+            <a href="#" class="list-group-item">Jack Gallagher</a>
+            <a href="#" class="list-group-item">Richard Castle</a>
+            <a href="#" class="list-group-item">Sheldon Cooper</a>
           </div>
         </div>
       </div>  
@@ -110,62 +128,107 @@
             <li id="check-emails"></li>
             <li id="more"></li>
           </ul>
+
+
+          <!--
+              PANEL TO DISPLAY MAIL CONTENT
+          -->
+          <div id="emailContent">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title" id="email-content-title">Panel title</h3>
+                <h4 id="email-content-subtitle">Panel Subtitle</h4>
+                <button type="button" id="close__mail__btn" class="close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div id="email-content-body"class="panel-body">
+                Panel content
+              </div>
+              <div id="email-content-footer" class="panel-footer">Panel footer</div>
+            </div>
+          </div>
+
+
+
           <ul id="emails">
-            <li data-id="1234">
-              <div class="checked" data-checked="false"></div>
-              <div class="starred" data-starred="true"></div>
-              <div class="from">Charlie Crews</div>
-              <div class="subject">I'm back</div>
-              <div class="preview">After been 12 years in prison...</div>
-            </li>
-            <li data-id="2345">
-              <div class="checked" data-checked="false"></div>
-              <div class="starred" data-starred="false"></div>
-              <div class="from">Jack Gallagher</div>
-              <div class="subject">The psiquiatric revolution</div>
-              <div class="preview">I want to change the way this hospital...</div>
-            </li>
-            <li data-id="3456">
-              <div class="checked" data-checked="false"></div>
-              <div class="starred" data-starred="true"></div>
-              <div class="from">Richard Castle</div>
-              <div class="subject">Niki Heat</div>
-              <div class="preview">The detective Niki Heat....</div>
-            </li>
-            <li data-id="4567">
-              <div class="checked" data-checked="false"></div>
-              <div class="starred" data-starred="false"></div>
-              <div class="from">Sheldon Cooper</div>
-              <div class="subject">I'm going to win the Noble price</div>
-              <div class="preview">Dear poor minds, probably you...</div>
-            </li>
+            
+            <!--
+              USE THIS (<ul class="list-group">) TO FORM LIST OF EMAILS...
+            -->
+
+            <div class="list-group">
+
+              <li data-id="1234">
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading from">Charlie Crews - I'm back</h4>
+                  <p class="list-group-item-text preview">After been 12 years in prison...</p>
+                </a>
+              </li>
+
+              <li data-id="2345">
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading from">Jack Gallagher - The psiquiatric revolution</h4>
+                  <p class="list-group-item-text preview">I want to change the way this hospital...</p>
+                </a>
+              </li>
+
+              <li data-id="3456">
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading from">Richard Castle - Niki Heat</h4>
+                  <p class="list-group-item-text preview">The detective Niki Heat....</p>
+                </a>
+              </li>
+
+              <li data-id="4567">
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading from">Sheldon Cooper - I'm going to win the Noble price</h4>
+                  <p class="list-group-item-text preview">Dear poor minds, probably you...</p>
+                </a>
+              </li>
+            </div>
           </ul>
         </div>
       </div>
 
 
       <div id="footer" class="row col-md-10">
-        <div id="usage">10GB 70% of 15GB</div>
-        <div id="brand">My Mail Company</div>
-        <div id="terms">Terms & privacy</div>
-        <div id="last-activity">Last account activity: 2 minutes ago</div>
+        <div id="usage" class="col-md-3">10GB 70% of 15GB</div>
+        <div id="brand" class="col-md-2">My Mail Company</div>
+        <div id="terms" class="col-md-3">Terms & privacy</div>
+        <div id="last-activity" class="col-md-4">Last account activity: 2 minutes ago</div>
       </div>
-
     </div>
 
 
-    <div id="blank-email">
+    <div id="blank-email" class="col-md-7">
       <div id="blank-close"></div>
-      <form id="new_email">
-        <div><label for="blank-to">To</label><input id="blank-to" name="to" type="text" value=""></div>
-        <div><label for="blank-from">From</label><input id="blank-from" name="from" type="text" value=""></div>
-        <div><label for="blank-subject">Subject</label><input id="blank-subject" name="subject" type="text" value=""></div>
-        <div><textarea id="blank-content" name="content" rows="4" cols="50"></textarea></div>
-        <div id="blank-bottom">
-          <div id="send"></div>
-          <div id="trash"></div>
-      </form>
+        <form id="new_email">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">From:</label>
+            <div class="col-sm-10">
+              <input type="text" name="from" class="form-control" id="inputEmail3" placeholder="Your Name">
+            </div>
+            <label for="toemail" class="col-sm-2 control-label">To:</label>
+            <div class="col-sm-10">
+              <input type="text" name="to" class="form-control" id="toemail" placeholder="To Email">
+            </div>
+            <label for="subject" class="col-sm-2 control-label">Subject:</label>
+            <div class="col-sm-10">
+              <input type="text" name="Subject" class="form-control" id="subject" placeholder="Subject">
+            </div>
+            <label for="text-area-nmail" class="col-sm-2 control-label">Message:</label>
+            <div class="col-sm-10">
+              <textarea id="text-area-nmail" name="content" rows="4" cols="50"></textarea>
+            </div>
+            <div class="col-sm-offset-2 col-sm-10">
+              <button id="cancelEmail" class="btn btn-default">Cancel</button>
+              <button type="submit" id="sendEmail" class="btn btn-default">Send</button>
+            </div>
+          </div>
+        </form>
     </div>
+
   </div>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
