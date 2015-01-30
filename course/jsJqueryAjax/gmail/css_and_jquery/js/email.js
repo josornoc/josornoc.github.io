@@ -41,28 +41,43 @@ $(document).ready(function()
 
 		function serveEmails(data){
 
+			var i = 0;
+
 			$.each(data, function(index, val) {
 
 				console.log(index, val, val);
-
+				i++;	
 				rString  = "<li data-id="+index+">";
 				rString += "<a href='#' class='list-group-item'>";
+				rString += "<div>";
+				rString += "<span class='glyphicon glyphicon-star-empty star-icon' aria-hidden='true'></span>"
+				rString += "</div>";
 				rString += "<h4 class='list-group-item-heading from'>" + val.from + "-" + val.subject +"</h4>";
 				rString += "<p class='list-group-item-text preview'>" + val.preview + "</p>";
 				rString += "</a>";
 				rString += "</li>";
 
 				$("#emails .list-group").prepend(rString);
-
 			});
+			
+			$("#new-messages").text(i);
+
 		};
 	});
 
+	$("#emails").delegate(".star-icon", "click", function(event){
+
+		//event.currentTarget.toggleClass('glyphicon-star-empty');
+		//event.currentTarget.toggleClass('glyphicon-star');
+
+		$(event.currentTarget).toggleClass('glyphicon-star-empty');
+		$(event.currentTarget).toggleClass('glyphicon-star');
+
+		event.stopPropagation();
+	});
 
 	$("#emails").delegate("li", "click", function(event){		
 
-		console.log("loading email with id num: " + event.currentTarget.dataset.id);
-		
 		$.ajax({
 			url: SERVER+"/email/" + event.currentTarget.dataset.id,
 			type: "get",

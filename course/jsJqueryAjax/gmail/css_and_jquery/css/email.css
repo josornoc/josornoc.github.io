@@ -10,6 +10,10 @@ ul#emails{
 	margin:12px 0 0 0;
 }
 
+.star-icon{
+	float:right;
+}
+
 #emails div{
 	display: inline;
 }
