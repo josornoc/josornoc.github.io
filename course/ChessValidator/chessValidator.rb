@@ -103,19 +103,15 @@ class ChessBoard
 		#puts "Piece"
 		#puts piece
 
-		p "get_piece_movement_route"
-		p piece
-		puts "Get_piece_movement_route "
-		gRouteArray = piece.get_route_positions_array(firstPos, finalPos)
-		p gRouteArray
+		gRouteArray = piece.get_route_positions_array(firstPos, finalPos)	
 
-		# if(gRouteArray != nil)
-		# 	gRouteArray.each do |position|
-		# 		eval_route_next_step(position)
-		# 	end
-		# else
-		# 	puts "gRouteArray is nil"
-		# end
+		if(gRouteArray != nil)
+			gRouteArray.each do |position|
+				eval_route_next_step(position)
+			end
+		else
+			puts "gRouteArray is nil"
+		end
 	end
 
 	def get_piece_on_position(pos)
@@ -129,7 +125,7 @@ class ChessBoard
 
 	def eval_route_next_step(stepPosition)
 		puts "eval_route_next_step"
-		puts stepPosition
+		p get_piece_on_position(stepPosition)
 	end
 
 	def create_board_spaces(boardLine)
@@ -194,13 +190,15 @@ end
 
 class Knight < Piece
 	def initialize(side)
-		super(side)
+		rules = ["jumps","lshape"]
+		super(side, rules)
 	end
 end
 
 class Pawn < Piece
 	def initialize(side)
-		super(side)
+		rules = ["vertical","jumpOnFirst","oneStep","diagonal", "Pawn"+side.to_s]
+		super(side, rules)
 	end
 end
 
@@ -219,6 +217,8 @@ class Routes
 				routeArray = get_diagonal_route(coord1, coord2)
 				when "oneStep"
 				routeArray = get_onestep_route(routeArray)
+			when "lShaped"
+				routeArray = get_lShaped_route(coord1, coord2)
 				end
 			end
 		end
@@ -235,11 +235,28 @@ class Routes
 			when "diagonal"
 				boolResRType << eval_if_equal((coord1[0] - coord2[0]).abs,(coord1[1] - coord2[1]).abs)
 			when "oneStep"
-				boolResRType << if(rTypes.index("oneStep"))
+				boolResRType << evail_if_available(routeType, rTypes)
+			when "lshape"
+				p "lshape"
+				boolResRType << eval_if_lshaped(coord1, coord2)
 			end
 		end
 		rHash = rTypes.zip(boolResRType).to_h
 		rHash
+	end
+	def self.eval_if_lshaped(coord1, coord2)
+		a = (coord1[0] - coord2[0]).abs
+		b = (coord1[1] - coord2[1]).abs
+		p a, b
+		p (a==1&&b==2) || (a==2&&b==1)
+		#return true if coord1[0] - 1 ==
+	end
+	def self.get_lShaped_route(coord1, coord2)
+		#get_lShaped_route
+	end
+	def self.evail_if_available(str, ary)
+		return true if ary.index(str) > -1
+		return false if ary.index(str) <= -1
 	end
 	def self.eval_if_equal(s1, s2)
 		s1 == s2
@@ -249,8 +266,8 @@ class Routes
 		tmpArray
 	end
 	def self.get_onestep_route(ary)
-		puts "get_onestep_route"
-		p ary
+		return [] if ary.length > 1
+		ary
 	end
 	def self.get_diagonal_route(coord1, coord2)
 		#NEED TO REFACTOR THIS METHOD
