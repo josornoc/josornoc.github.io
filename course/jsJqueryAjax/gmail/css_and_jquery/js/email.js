@@ -65,16 +65,26 @@ $(document).ready(function()
 		};
 	});
 
+	var starredItems = [];
+
 	$("#emails").delegate(".star-icon", "click", function(event){
-
-		//event.currentTarget.toggleClass('glyphicon-star-empty');
-		//event.currentTarget.toggleClass('glyphicon-star');
-
 		$(event.currentTarget).toggleClass('glyphicon-star-empty');
 		$(event.currentTarget).toggleClass('glyphicon-star');
-
+		readStarredElements();
 		event.stopPropagation();
 	});
+
+	function readStarredElements(){
+		console.log("readStarredElements");	
+		starredItems = [];
+		var totalItems = $(".list-group li").length;
+		console.log(totalItems);
+		$.each($(".list-group li .glyphicon-star"), function(k, v){
+			starredItems.push($(v).parent().parent().parent());
+		});
+		console.log(starredItems);
+		$("#starred-msgs-badge").text(starredItems.length);
+	}
 
 	$("#emails").delegate("li", "click", function(event){		
 
