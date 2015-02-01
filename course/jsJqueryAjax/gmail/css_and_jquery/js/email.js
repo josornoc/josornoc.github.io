@@ -67,6 +67,32 @@ $(document).ready(function()
 
 	var starredItems = [];
 
+	$("#starred-msgs").bind("click", function(){
+
+		console.log(starredItems);
+
+		$("#emails .list-group").empty();
+
+		$.each(starredItems, function(index, val) {
+
+			console.log(starredItems[index][0].dataset.id);
+			
+			$("#emails .list-group").prepend(val);
+
+			// rString  = "<li data-id="+starredItems[index][0].dataset.id+">";
+			// rString += "<a href='#' class='list-group-item'>";
+			// rString += "<div>";
+			// rString += "<span class='glyphicon glyphicon-star star-icon' aria-hidden='true'></span>"
+			// rString += "</div>";
+			// rString += "<h4 class='list-group-item-heading from'>" + val.from + "-" + val.subject +"</h4>";
+			// rString += "<p class='list-group-item-text preview'>" + val.preview + "</p>";
+			// rString += "</a>";
+			// rString += "</li>";
+			// $("#emails .list-group").prepend(rString);
+		});
+
+	});
+
 	$("#emails").delegate(".star-icon", "click", function(event){
 		$(event.currentTarget).toggleClass('glyphicon-star-empty');
 		$(event.currentTarget).toggleClass('glyphicon-star');
@@ -75,16 +101,13 @@ $(document).ready(function()
 	});
 
 	function readStarredElements(){
-		console.log("readStarredElements");	
 		starredItems = [];
-		var totalItems = $(".list-group li").length;
-		console.log(totalItems);
 		$.each($(".list-group li .glyphicon-star"), function(k, v){
 			starredItems.push($(v).parent().parent().parent());
 		});
-		console.log(starredItems);
 		$("#starred-msgs-badge").text(starredItems.length);
-	}
+		//var totalItems = $(".list-group li").length;
+	};
 
 	$("#emails").delegate("li", "click", function(event){		
 
