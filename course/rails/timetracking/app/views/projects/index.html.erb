@@ -1,0 +1,14 @@
+<h2>PROJECTS GO HERE:</h2>
+<h3>here is a really nice var: <%=@yMama%></h3>
+<ul>
+	<%@projects.each do |project|%>
+		<li>
+			<h2><%=project.name%>:</h2>
+			<%if project.description != nil%>
+				<p><%=project.description%></p>
+			<%else%>
+				<p>This description is really nothing...</p>
+			<%end%>
+		</li>
+	<%end%>
+</ul>

@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
 
-	validates_presence_of :name, :description
+	validates_presence_of :name
 
 	def self.get_by_id(n)
 		where("id = ?", n)
@@ -9,5 +9,9 @@ class Project < ActiveRecord::Base
 	def self.clean_old()
 		from = Date.today - 1.week
 		where("created_at < ?", from).destroy_all
+	end
+
+	def self.last_created_projects(n)
+		order("created_at DESC").limit(n)
 	end
 end
