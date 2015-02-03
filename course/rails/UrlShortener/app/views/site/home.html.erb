@@ -1,1 +1,11 @@
 <h1>Welcome to Boo's URL Shortener</h1>
+<ul>
+<% @allShortenedUrls.each do |item| %>
+	<li>
+		<b>Given URL: </b><%=item.url%> / 
+		<b>Short URL: </b><%=item.short_url%> / 
+		<b>Visited: </b><%=item.clicks_num%> <b>Times</b> / 
+		<b>Created At: </b><%=item.created_at%>
+	</li>
+<% end %>
+</ul>
