@@ -1,0 +1,30 @@
+<h2>Project: <%=@project.name%></h2>
+<hr>
+<h2>Entries this month:</h2>
+<% @entriesThisMonth.each do |e| %>
+	<h3>Entry:</h3>
+	<ul>
+		<li>comments: <%= e.comments %></li>
+		<li>hours: <%= e.hours %></li>
+		<li>minutes: <%= e.minutes %></li>
+		<li>created_at: <%= e.created_at %></li>
+		<li>updated_at: <%= e.updated_at %></li>
+	</ul>
+	<hr>
+<% end %>
+<h2>Amount of hours worked:</h2>
+<h3>Hours: <%=@hoursWorked%></h3>
+<h3>Minutes: <%=@minutesWorked%></h3>
+<hr><hr>
+<h2>All Entries for this project:</h2>
+<% @entries.each do |e| %>
+	<h3>Entry:</h3>
+	<ul>
+		<li>comments: <%= e.comments %></li>
+		<li>hours: <%= e.hours %></li>
+		<li>minutes: <%= e.minutes %></li>
+		<li>created_at: <%= e.created_at %></li>
+		<li>updated_at: <%= e.updated_at %></li>
+	</ul>
+	<hr>
+<% end %>
