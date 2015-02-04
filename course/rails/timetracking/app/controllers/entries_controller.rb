@@ -12,6 +12,11 @@ class EntriesController < ApplicationController
 			@hoursWorked += entry.hours
 			@minutesWorked += entry.minutes
 		end
+	end
 
+	def new
+		#vars for new.html.erb
+		@project = Project.find params[:project_id]
+		@entry = @project.entries.new
 	end
 end

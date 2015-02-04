@@ -4,6 +4,5 @@ class Entry < ActiveRecord::Base
 	validates :date, presence: true
 	validates :hours, numericality: { only_integer: true }
 	validates :minutes, numericality: { only_integer: true }
-	
 	belongs_to :project
 end
