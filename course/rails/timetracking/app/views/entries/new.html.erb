@@ -1,5 +1,9 @@
-<h1>New entry page</h1>
-<h2><%=@project%></h2>
+<h1>New entry for project: </h1>
+<h2>
+	Project: <%=@project.name%> /// 
+	Created At: <%=@project.created_at%> ///
+	Id: <%=@project.id%>
+</h2>
 <%= form_for [@project, @entry] do |f|%>
 	<%= f.label :hours %>
 	<%= f.text_field :hours %>
