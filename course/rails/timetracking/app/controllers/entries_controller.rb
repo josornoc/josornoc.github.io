@@ -29,8 +29,25 @@ class EntriesController < ApplicationController
 		end
 	end
 
+	def edit
+		@project = Project.find params[:project_id]
+		@entry = @project.entries.find params[:id]
+		#@entry = @project.entries.new entry_params
+	end
+
 	private
 	def entry_params
 		params.require(:entry).permit(:hours, :minutes, :date, :comments)
 	end
 end
+
+
+
+
+
+
+
+
+
+
+

@@ -10,6 +10,7 @@
 <h2>Entries this month:</h2>
 <% @entriesThisMonth.each do |e| %>
 	<h3>Entry:</h3>
+	<h5><%= link_to("Edit Entry", edit_project_entry_path(@project, e)) %></h5>
 	<ul>
 		<li>comments: <%= e.comments %></li>
 		<li>hours: <%= e.hours %></li>
