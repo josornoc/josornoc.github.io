@@ -23,6 +23,7 @@ class EntriesController < ApplicationController
 		@project = Project.find params[:project_id]
 		@entry = @project.entries.new entry_params
 		if @entry.save
+			flash[:notice] = "Entry created with honor"
 			redirect_to action: 'index'
 		else
 			render 'new'

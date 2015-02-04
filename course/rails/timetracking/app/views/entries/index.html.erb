@@ -4,7 +4,9 @@
 
 <%= link_to("See all projects", projects_path()) %>
 <%= link_to("Create new entry for project", new_project_entry_path(@project)) %>
-
+<% if(flash[:notice]) %>
+	<h5><%= flash[:notice] %></h5>
+<% end%>
 <h2>Project: <%=@project.name%></h2>
 <hr>
 <h2>Entries this month:</h2>
