@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+	resources :projects
+
   get '/' => 'site#home'
   get '/contact' => 'site#contact'
   get '/projects' => 'projects#index'
