@@ -8,9 +8,12 @@
 </head>
 <body>
 	<header>
-		<h1>
-			<a href="/projects">Project Tracker Tool</a> 
-		</h1>
+			<h1>
+				<!--
+					<a href="/projects">Project Tracker Tool</a> 
+				-->
+				<%= link_to("Project Tracker Tool", projects_path()) %>
+			</h1>
 	</header>
 	<hr>
 	<%= yield %>
