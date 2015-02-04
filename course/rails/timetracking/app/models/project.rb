@@ -4,7 +4,8 @@ class Project < ActiveRecord::Base
 	validates :name, presence: true
 	validates :name, uniqueness: true
 	validates :name, length: { maximum: 30 }
-	#validates :name, :format => { :with => /^[a-zA-Z0-9{0,40}-_]+$/ } #Check RegExp
+	validates :description, presence: true
+	validates :name, :format => { :with => /[a-zA-Z0-9]*/ } #Check RegExp
 
 	#relationships
 	has_many :entries
