@@ -1,0 +1,18 @@
+<div class="col-md-8 col-md-offset-2">
+	<div class="list-group">
+		<% @contacts.each do |contact| %>
+		  <a href="#" class="list-group-item">
+		    <h4 class="list-group-item-heading"><b><%= contact.name %></b></h4>
+		    <p class="list-group-item-text">Address: <b><%= contact.address %></b></p>
+		  </a>
+		<% end %>
+	</div>
+	<div class="page-header">
+	  <h2>Enter new contact <small>Even with phone number!</small></h2>
+	</div>
+	<%= bootstrap_form_for(@contact) do |cntc| %>
+  <%= cntc.text_field :name %>
+  <%= cntc.text_field :address %>
+  <%= cntc.submit "Create new contact" %>
+	<% end %>	
+</div>
