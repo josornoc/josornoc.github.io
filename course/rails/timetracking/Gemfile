@@ -35,6 +35,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails'a, group: :development
 
+# Fot attaching files to views?
+gem 'paperclip', '~> 4.2'
+
 group :development, :test do
 
   #nice looking console debug program...
