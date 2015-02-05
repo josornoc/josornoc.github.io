@@ -1,7 +1,11 @@
 <h1>Create new project: </h1>
-<%= form_for [@project] do |f|%>
+<%= form_for [@project], :html => { :multipart => true } do |f| %>
 	<%= f.label :name %>
 	<%= f.text_field :name %>
+	<br>
+	<%= f.label :logo %>
+	<br>
+	<%= f.file_field :logo %>
 	<br>
 	<%= f.label :description %>
 	<br>

@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
 	private
 	def entry_params
-		params.require(:project).permit(:name, :description)
+		params.require(:project).permit(:name, :logo, :description)
 	end
 end
 

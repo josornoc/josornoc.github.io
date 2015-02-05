@@ -8,6 +8,7 @@
 	<h5><%= flash[:notice] %></h5>
 <% end%>
 <h2>Project: <%=@project.name%></h2>
+<%= image_tag @project.logo.url(:medium) %>
 <hr>
 <h2>Entries this month:</h2>
 	<% @entriesThisMonth.each do |e| %>

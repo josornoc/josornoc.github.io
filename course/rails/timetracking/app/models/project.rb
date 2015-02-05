@@ -6,6 +6,9 @@ class Project < ActiveRecord::Base
 	validates :name, length: { maximum: 30 }
 	validates :description, presence: true
 	validates :name, :format => { :with => /[a-zA-Z0-9]*/ } #Check RegExp
+	
+	has_attached_file :logo, styles:{:medium => "300x300>", :thumb => "100x100>"}
+	validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
 
 	#relationships
 	has_many :entries
