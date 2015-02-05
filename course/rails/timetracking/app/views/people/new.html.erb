@@ -1,0 +1,13 @@
+<h1>Create new Person: </h1>
+<%= form_for [@person] do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+	<%= f.submit "Save" %>
+<% end %>
+<% if @person.errors.any? %>
+	<ul>
+		<% @person.errors.full_messages.each do |err_message| %>
+			<li><%= err_message %></li>
+		<% end %>
+	</ul>
+<% end %>

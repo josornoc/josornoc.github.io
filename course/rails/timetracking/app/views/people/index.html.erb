@@ -1,0 +1,20 @@
+<h2>LIST OF ALL PEOPLE LINKED TO PROJECTS:</h2>
+<hr>
+<p><%= link_to("Create new person", new_person_path ) %></p>
+<hr>
+<ul>
+	<% @people.each do |person| %>
+		<li>
+			<p><%= link_to(person.name, person_path(person)) %></p>
+			<p>Person registered in: <%= person.created_at %></p>
+			<% if person.projects.nil? == false %>
+				<p>Projects assigned to:</p>
+				<ul>
+				<% person.projects.each do |pPjcts| %>
+					<li><p><%= pPjcts.name %></p></li>
+				<% end%>
+				</ul>
+			<% end%>
+		</li>
+	<% end %>
+</ul>

@@ -11,7 +11,18 @@
 			<%else%>
 			<%end%>
 			<h3>Number of entries: <%= project.entries.length %></h3>
+			<h3>Number of Participants: <%= project.people.length %></h3>
+
+			<% if project.people.length > 0 %>
+				<ul>
+					<% project.people.each do |person| %>
+						<li><p><%= person.name %></p></li>
+					<% end %>
+				</ul>
+			<% end %>
+
 			<!--<h2><a href=<%="/projects/#{project.id}/entries"%> ><%=project.name%></a></h2>-->
+			
 			<p><%= project.description %></p>
 			<p>Created in: <%=project.created_at%></p>
 		</li>

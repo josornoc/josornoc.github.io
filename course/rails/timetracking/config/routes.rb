@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 		resources :entries
 	end
 	resources :people
+	post '/people/:id' => 'people#add_project'
 end
 
 # get '/' => 'site#home'

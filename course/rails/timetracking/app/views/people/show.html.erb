@@ -1,0 +1,19 @@
+<h2>PERSON INFO</h2>
+<h5>Registered on <%=@person.created_at%></h5>
+<h5>Last updated on <%=@person.updated_at%></h5>
+<h2>Person Name: <%=@person.name%></h2>
+<hr>
+<h3>Available projects:</h3>
+<ul>
+<% @projects.each do |project| %>
+	<li>
+		<%= project.name %>
+	</li>
+<% end %>
+</ul>
+<br>
+<h4>Select project to join:</h4>
+<%= form_tag [@person] do |f|%>
+	<%= select_tag(:project_id, options_for_select(@prjsForSelection)) %>
+  <%= submit_tag 'Join Project' %>
+<% end %>
