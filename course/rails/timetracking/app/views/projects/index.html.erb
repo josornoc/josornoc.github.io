@@ -6,6 +6,7 @@
 	<% @projects.each do |project| %>
 		<li>
 			<h2><%= link_to(project.name, project_entries_path(project)) %></h2>
+			<h3>Number of entries: <%= project.entries.length %></h3>
 			<!--<h2><a href=<%="/projects/#{project.id}/entries"%> ><%=project.name%></a></h2>-->
 			<p><%= project.description %></p>
 			<p>Created in: <%=project.created_at%></p>

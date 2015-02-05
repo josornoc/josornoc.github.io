@@ -4,23 +4,7 @@
 	Created At: <%=@project.created_at%> ///
 	Id: <%=@project.id%>
 </h2>
-<%= form_for [@project, @entry] do |f|%>
-	<%= f.label :hours %>
-	<%= f.text_field :hours %>
-	<br>
-	<%= f.label :minutes %>
-	<%= f.text_field :minutes %>
-	<br>
-	<%= f.label :date %>
-	<%= f.text_field :date %>
-	<br>
-	<%= f.label :comments %>
-	<br>
-	<%= f.text_area :comments %>
-	<br>
-	<%= f.submit "Save" %>
-<% end %>
-
+<%= render 'form' %>
 <% if @entry.errors.any? %>
 	<ul>
 		<% @entry.errors.full_messages.each do |err_message| %>
@@ -28,4 +12,3 @@
 		<% end %>
 	</ul>
 <% end %>
-<%= link_to("Cancel", project_entries_path(@project)) %>
