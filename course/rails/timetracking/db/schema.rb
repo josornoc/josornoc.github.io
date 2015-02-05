@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205105812) do
+ActiveRecord::Schema.define(version: 20150205141206) do
 
   create_table "entries", force: :cascade do |t|
     t.integer  "project_id"
@@ -24,18 +24,19 @@ ActiveRecord::Schema.define(version: 20150205105812) do
   end
 
   create_table "participations", force: :cascade do |t|
-    t.integer  "person"
-    t.integer  "project"
+    t.integer  "person_id"
+    t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "participations", ["person"], name: "index_participations_on_person"
-  add_index "participations", ["project"], name: "index_participations_on_project"
+  add_index "participations", ["person_id"], name: "index_participations_on_person_id"
+  add_index "participations", ["project_id"], name: "index_participations_on_project_id"
 
   create_table "people", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "projects", force: :cascade do |t|

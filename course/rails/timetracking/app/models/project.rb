@@ -12,6 +12,7 @@ class Project < ActiveRecord::Base
 
 	#relationships
 	has_many :entries
+	has_many :participations
 	has_many :people, through: :participations
 
 	#class methods
