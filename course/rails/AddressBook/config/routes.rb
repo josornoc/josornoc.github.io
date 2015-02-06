@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get '/' => 'site#home'
+	root :controller => 'static', :action => '/' 
   resources :contacts
 
   # resources :projects do
