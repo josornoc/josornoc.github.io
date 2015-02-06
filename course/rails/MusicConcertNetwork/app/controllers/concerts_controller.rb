@@ -14,6 +14,7 @@ class ConcertsController < ApplicationController
 		end
 	end
 	def show
+		@comment = Comment.new
 		begin
 			@concert = Concert.find(params[:id])
 		rescue ActiveRecord::RecordNotFound
