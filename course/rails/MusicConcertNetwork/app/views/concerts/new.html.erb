@@ -1,0 +1,15 @@
+<div class="col-md-8 col-md-offset-2">
+	<div class="page-header">
+	  <h2>Create a new concert <small>All fields are mandatory</small></h2>
+	</div>
+	<%= bootstrap_form_for(@concert) do |c| %>
+	<%= c.text_field :band %>
+	<%= c.text_field :date %>
+	<%= c.text_field :venue %>
+	<%= c.text_field :city %>
+	<%= c.text_field :price %>
+	<%= c.text_area :description %>
+	<%= c.submit "Create new concert" %>
+	<%= link_to "Back", concerts_path, class: "btn btn-primary" %>
+	<% end %>	
+</div>

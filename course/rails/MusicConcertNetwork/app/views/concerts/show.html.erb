@@ -1,0 +1,13 @@
+<div class="col-md-12">	
+	<div class="jumbotron">
+		<div class="container">
+		  <h1><%= @concert.band %></h1>
+		  <p>Location: <b><%= @concert.venue %></b></p>
+		  <p>City: <b><%= @concert.city %></b></p>
+		  <p>Date: <b><%= @concert.date.strftime("%A, %d - %B - %Y") %></b></p>
+	  	<%= link_to "Buy Tickets", concerts_path, class: "btn btn-primary btn-lg" %>
+	  	<%= link_to "Back", root_path, class: "btn btn-primary btn-lg" %>		  
+		</div>
+	</div>
+</div>
+
