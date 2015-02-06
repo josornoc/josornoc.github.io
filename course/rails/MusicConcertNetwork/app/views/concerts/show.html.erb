@@ -12,22 +12,32 @@
 	<div class="page-header">
 	  <h2>Concert Comments</h2>
 	</div>
-	<div class="panel panel-default">
-	  <div class="panel-heading">Panel heading without title</div>
-	  <div class="panel-body">
-	    Panel content
-	  </div>
-	</div>
+
+	<!-- Panel create for each comment -->
+	<% if @comments.empty? == false %>
+		<% @comments.each do |comment| %>
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			  	Comment by: <b><%= comment.name %></b>
+			  	Posted in - <b><%= comment.created_at.strftime("%A, %d - %B - %Y  /  At: %H:%M") %></b>
+			  </div>
+			  <div class="panel-body"><%= comment.text %></div>
+			</div>
+		<% end %>
+	<% end %>
+	<!--  -->
+
 	<div class="page-header">
 	  <h2>Post new comment</h2>
 	</div>
-
-	<!-- this will be the form to publish post -->
-	<%= bootstrap_form_for(@comment) do |c| %>
-	<%= c.text_field :name %>
-	<%= c.text_area :text %>
-	<%= c.submit "Post" %>
+	<!-- Form to add a comment to the concert -->
+	<%= form_for [@concert, @comment] do |comm|%>
+	<%= comm.text_field :name %>
+	<%= comm.text_area :text %>
+	<%= comm.submit "Post" %>
+	<%= link_to("Cancel", concert_comments_path(@concert)) %>
 	<% end %>
+	<!--  -->
 
 </div>
 

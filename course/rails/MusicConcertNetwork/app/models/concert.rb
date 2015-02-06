@@ -10,6 +10,10 @@ class Concert < ActiveRecord::Base
 	validates :description, presence: true
 
 	has_many :comments
+
+	def self.get_popular
+		
+	end
 	
 	#validates :name, :format => { :with => /[a-zA-Z0-9]*/ } #Check RegExp
 	#has_attached_file :logo, styles:{:medium => "300x300>", :thumb => "100x100>"}

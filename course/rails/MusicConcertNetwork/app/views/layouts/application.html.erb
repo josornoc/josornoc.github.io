@@ -21,6 +21,22 @@
     </nav>
   </header>
 
+  <div class="col-md-10 col-md-offset-1">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-md-8">
+          <h1>Music Concert Network</h1>
+        </div>
+        <div class="col-md-4">
+          <%= form_tag(price_path, method: "get", class: "navbar-form navbar-right") do %>
+            <%= text_field_tag :price, nil, class: "form-control", placeholder: "I'm willing to pay..." %>
+            
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <%= yield %>
 
   <div class="col-md-12"> 
