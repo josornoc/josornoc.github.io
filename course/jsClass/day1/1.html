@@ -8,27 +8,36 @@
 	</head>
 	<body>
 		
-		<button id="button">Click me</button>
-		<div id="content"></div>
-
-		<ul id="list">
-			<li>Clicked <span>0</span> times</li>
-			<li>Clicked <span>0</span> times</li>
-			<li>Clicked <span>0</span> times</li>
-		</ul>
+		<button id="open">Click me</button>
+		<button id="close">Close Notification</button>
 
 		<script>
 
-			// var b = document.getElementById("button");
-			// 		b.addEventListener("click", clkHandler);
+			var open = document.getElementById("open");
+			var close = document.getElementById("close");
 
-			// function clkHandler(){
-			// 	var mText = "Hello World!!!",
-			// 			cont = document.getElementById("content"); 
-			// 	cont.innerHTML += mText;
-			// }
+			open.addEventListener("click", onOpen);
+			close.addEventListener("click", onClose);
 
+			function onOpen(){
+			  
+			  if(Notification.permission !== "denied"){
+			    Notification.requestPermission(function(permission){
+			      if(permission==="granted"){
+			        new Notification("Hi!")
+			      }
+			    });
+			  }
 
+			  if(!window.Notification){
+			    alert("No notification...");
+			    return;
+			  }
+			}
+
+			function onClose(){
+			  Notification.close();
+			}
 
 		</script>
 	</body>
