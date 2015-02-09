@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example</title>
+		<style>
+			table{
+				border:1px solid #000;
+			}
+
+			td{
+				border:1px solid #000;
+				width:75px;
+				height:75px;
+			}
+
+			.camel1{
+				background-color: red
+			}
+
+			.camel2{
+				background-color: blue
+			}
+
+		</style>
+		<!-- previosly place for loading js
+			<script type="text/javascript"></script>
+		-->
+	</head>
+	<body>
+
+		<table>
+			<h2>Camel #1</h2>
+			<tr>
+				<td class="camel1"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+
+		<table>
+			<h2>Camel #2</h2>
+			<tr>
+				<td class="camel2"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+
+		<script>
+
+			var cPlayer1Pos = 0;
+			var cPlayer2Pos = 0;
+			var gameTotalSteps = document.getElementsByTagName("td").length / 2;
+
+			window.addEventListener("keyup", kUpHndlr);
+
+			function kUpHndlr(event){
+
+				if(event.keyCode == 65){
+					document.getElementsByTagName("td")[cPlayer1Pos].classList.remove("camel1");
+					cPlayer1Pos++;
+					document.getElementsByTagName("td")[cPlayer1Pos].classList.add("camel1");
+				}
+
+				if(event.keyCode == 76){
+					document.getElementsByTagName("td")[cPlayer2Pos + gameTotalSteps].classList.remove("camel2");
+					cPlayer2Pos++;
+					document.getElementsByTagName("td")[cPlayer2Pos + gameTotalSteps].classList.add("camel2");
+				}
+
+				console.log(cPlayer1Pos)
+				console.log(cPlayer2Pos)
+				console.log(gameTotalSteps - 1)
+
+				if(cPlayer1Pos === gameTotalSteps - 1){
+					alert("player 1 wins")
+					console.log("player 1 wins!!!");
+					window.removeEventListener("keyup", kUpHndlr);
+				}
+
+				if(cPlayer2Pos === gameTotalSteps - 1){
+					alert("player 2 wins")
+					console.log("player 2 wins!!!");
+					window.removeEventListener("keyup", kUpHndlr);
+				}
+			}
+
+		</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
