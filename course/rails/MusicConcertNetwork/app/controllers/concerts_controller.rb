@@ -31,8 +31,7 @@ class ConcertsController < ApplicationController
 	def popular
 		tomorrow = Date.today.midnight + 1.day
 		#@concerts = Concert.where("date >= ?", tomorrow).reverse
-
-		@concerts = Concert.joins(:account).merge(Account.where(:active => true))
+		@concerts = Concert.joins(:comments).merge(Comment.where(:active => true))
 
 		#@concerts = @concerts.joins(:comments).where("comments < ?", Time.now)
 	end
