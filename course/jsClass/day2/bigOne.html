@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Tinder.js</title>
+    <!--
+      <link rel="stylesheet" href="styles/bootstrap.css">
+    -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="javascript/query.tinder.js"></script>
+    <script src="javascript/ajax.tinder.js"></script>
+    <script src="javascript/geolocation.tinder.js"></script>
+    <script src="javascript/storage.tinder.js"></script>
+    <script src="javascript/notifications.tinder.js"></script>
+  </head>
+  <body>
+    
+    <!-- TinderQuery! -->
+    <script>
+      var tndr = window.Tinder;
+    </script>
+
+    <!-- TinderAjax! -->
+    <button id="getLocation">Get My Location</button>
+    <script>
+      var button = tndr.query("#getLocation");
+      tndr.on(button, "click", function(event) {
+        // do something with latitude longitude
+        tndr.getLocation();
+      });
+    </script>
+
+    <!-- TinderAjax! -->
+    <button id="getAddress">Get My Address</button>
+    <script>
+
+      var button = tndr.query("#getAddress");
+
+      tndr.on(button, "click", function(event) {
+
+        // tndr.ajax(url, data, function(response) {
+        //   // do something with response
+        // });
+
+        tndr.ajaxRequest();
+
+      });
+
+    </script>
+
+    <!-- TinderStorage! -->
+    <button id="storeData">Store Data</button>
+    <script>
+      var button = tndr.query("#storeData");
+      tndr.on(button, "click", function(event) {
+        // save geolocation and address in local storage
+        // tndr.store(data);
+        tndr.store();
+      });
+    </script>
+
+    <!-- TinderNotification! -->
+    <button id="notifyData">Notify Data</button>
+    <script>
+      var button = tndr.query("#notifyData");
+      tndr.on(button, "click", function(event) {
+        // display data in a notification
+        tndr.notify(data);
+      });
+    </script>
+    <div>
+      <img id="location" src=""/>
+    </div>
+    <div id="address"></div>
+  </body>
+</html>
+
+
+
+
+
+
