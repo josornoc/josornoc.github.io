@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<button id="button"></button>
+
+	<script>
+
+	var MyQuery = function() {
+	  var element;
+  	this.query = function(selector){
+  		element = document.querySelector(selector);
+  		return this;
+  	}
+	  this.on = function(event, f){
+  		element.addEventListener(event, f);
+  		return this;
+  	}
+	};
+
+	function talk(){
+		alert("Hello man!");
+	}
+
+	var mq = new MyQuery();
+			mq.query("#button").on("click", talk);
+
+	</script>
+</body>
+</html>
