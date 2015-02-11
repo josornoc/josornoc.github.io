@@ -5,7 +5,7 @@ class SiteController < ApplicationController
 	end
 
 	def redirect
-		@allShortenedUrls = Shortenedurl.all
+		@allShortenedUrls = Shortenedurl.limit(3)
 		render 'home'
 	end
 end

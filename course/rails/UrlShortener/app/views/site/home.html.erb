@@ -1,11 +1,21 @@
 <h1>Welcome to Boo's URL Shortener</h1>
+<hr>
+<h2>
+	Plz enter Url to be booShorted!
+</h2>
+<hr>
 <ul>
+<h2>
+	List of boo-shortened-urls
+</h2>
 <% @allShortenedUrls.each do |item| %>
 	<li>
 		<b>Given URL: </b><%=item.url%> / 
-		<b>Short URL: </b><%=item.short_url%> / 
+		<b>Short URL: </b><%=item.short_url%></a> / 
 		<b>Visited: </b><%=item.clicks_num%> <b>Times</b> / 
 		<b>Created At: </b><%=item.created_at%>
+		<%= link_to( item.short_url, root_path() ) %>
 	</li>
 <% end %>
 </ul>
+<hr>
