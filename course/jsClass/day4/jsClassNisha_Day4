@@ -29,6 +29,22 @@ npm install grunt-proccesshtml --save-dev
 // npm install grunt-contrib-copy --save-dev
 // grunt.registerTask('default', ['uglify', 'sass']);
 
-We upload a new repo with a branch called gh-pages; so automatically it will upload everything to our profile in gh and post in online.
+We upload a new repo with a branch called gh-pages; so automatically it will upload everything to our profile in gh-pages (github pages) and post in online.
+
+grunt & grunt build & grunt deploy >>> 
+This command will execute all pending tasks and then will deploy everything to the current gh-pages branch.  
+
+grunt + [something] Do the task [something] defined en the grunt field.
+grunt = Run the js Grunt file to run all pending tasks
+grunt build = execute build task defined in grunt js file. ()
+grunt build = realiza las tareas en el grunt file.
+
+// Custom tasks - Examples
+grunt.registerTask('deploy', ['gh-pages']);
+grunt.registerTask('build', ['processhtml']);
+grunt.registerTask('default', ['uglify', 'sass', 'copy']);
+
+
+
 
 
