@@ -1,36 +1,45 @@
 <html ng-app="angularApp">
+<head>
+  <title>Tinder</title>
 
-	<head>
-		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-		<script src="bower_components/angular/angular.js"></script>
-		<script src="javascript/controllers.js"></script>
-	  <title>HE LLO</title>
-	</head>
+  <!-- build:css bootstrap.min.css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <!-- /build  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.12/angular.min.js"></script>
+  <!-- build:js main.min.js -->
+  <script src="bower_components/bower-tinder-js/ajax.tinder.js"></script>
+  <script src="bower_components/bower-tinder-js/query.tinder.js"></script>
+  <script src="bower_components/bower-tinder-js/storage.tinder.js"></script>
+  <script src="javascript/controllers.js"></script>
+  <!-- /build  -->
 
-	<body ng-controller="PeopleListCtrl">
-	  <div class="container">
-	    <div class="header">
-	      <h3>The Unexpected reality</h3>
-	    </div>
-	    <div class="jumbotron">
-	      <h1>Brew</h1>
-	      <p class="lead">Angular JS / With BootStrap brewed installed components</p>
-	      <p class="lead">Remember that brew install --save already edits the brew.json file with dependencies.</p>
-	    </div>
-	    <div class="row">
+</head>
+<body ng-controller="PeopleListCtrl">
+  <div class="container">
+    <div class="header">
+      <h3>Tinder.js</h3>
+    </div>
 
-	      <div class="col-sm-4 col-md-4" ng-repeat="person in people">
-	        <div class="thumbnail">
-	          <img ng-src="{{person.avatar}}">
-	          <div class="caption">
-	            <h3>{{person.name}}</h3>
-	            <p>{{person.description}}</p>
-	            <p><a href="#" class="btn btn-primary" role="button">Yes</a> <a href="#" class="btn btn-default" role="button">Nope</a></p>
-	          </div>
-	        </div>
-	      </div>
+    <div class="jumbotron">
+      <h1>An Angular App</h1>
+      <p class="lead">Working with Angular and our own Bower packages. Nice.</p>
+    </div>
 
-	    </div>
-	  </div>
-	</body>
+    <div class="row">
+
+      <div class="col-sm-4 col-md-4" ng-repeat="person in people">
+        <div class="thumbnail">
+          <img ng-src="{{person.avatar}}">
+          <div class="caption">
+            <h3>{{person.name}}</h3>
+            <p>{{person.description}}</p>
+            <p><a href="#" class="btn btn-primary" role="button">Yes</a> <a href="#" class="btn btn-default" role="button">Nope</a></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
 </html>
