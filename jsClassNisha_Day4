@@ -1,0 +1,22 @@
+// read a tutorial no how we can create completely a bower component
+
+// initialize (install) bower in our root project folder
+> bower init
+
+// to install new dependencies to the project
+> bower install --save [dependency] 
+
+// to install new dependencies to the project only for the development context
+> bower install --dev-save [dependency] 
+
+// normally direction of the repository
+> bower register [name-project] [url-project] 
+
+// save new dependency to development context
+npm install grunt-proccesshtml --save-dev
+
+
+// Custom tasks (see GruntFileExample)
+// grunt.registerTask('build', ['processhtml']);
+// grunt.registerTask('default', ['uglify', 'sass']);
+// Several tasks added to grunt (with proccesshtml dependency added before)
