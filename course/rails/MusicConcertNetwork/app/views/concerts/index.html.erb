@@ -1,14 +1,14 @@
 <div class="col-md-12">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="list-group">
-			<% @concerts.each do |contact| %>
+			<% @concerts.each do |concert| %>
 			  <a href="#" class="list-group-item">
-			    <h4 class="list-group-item-heading">Band: <b><%= contact.band %></b></h4>
-			    <p class="list-group-item-text">Venue: <b><%= contact.venue %></b></p>
-			    <p class="list-group-item-text">City: <b><%= contact.city %></b></p>
-			    <p class="list-group-item-text">Price: <b><%= contact.price %></b></p>
-			    <p class="list-group-item-text">Date: <b><%= contact.date %></b></p>
-			    <p class="list-group-item-text">Description: <b><%= contact.description %></b></p>
+			    <h4 class="list-group-item-heading">Band: <b><%= concert.band %></b> / id: <%= concert.id %></h4>
+			    <p class="list-group-item-text">Venue: <b><%= concert.venue %></b></p>
+			    <p class="list-group-item-text">City: <b><%= concert.city %></b></p>
+			    <p class="list-group-item-text">Price: <b><%= concert.price %></b></p>
+			    <p class="list-group-item-text">Date: <b><%= concert.date %></b></p>
+			    <p class="list-group-item-text">Description: <b><%= concert.description %></b></p>
 			  </a>
 			<% end %>
 		</div>
